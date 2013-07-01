@@ -53,9 +53,9 @@ MACRO(mtca4uInstallation)
   message("This is mtca4uInstallation installing to ${MTCA4U_BASE_DIR}/${MTCA4U_VERSION}.")
 
   configure_file(${PROJECT_SOURCE_DIR}/cmakemodules//${PROJECT_NAME}.CONFIG.in
-    "${MTCA4U_DIR}/${PROJECT_NAME}CONFIG" @ONLY)
+    "${MTCA4U_DIR}/${PROJECT_NAME}.CONFIG" @ONLY)
 
-  configure_file(${PROJECT_SOURCE_DIR}/cmakemodules//${PROJECT_NAME}Config.cmake.in
+  configure_file(${PROJECT_SOURCE_DIR}/cmakemodules/${PROJECT_NAME}Config.cmake.in
     "${MTCA4U_DIR}/${PROJECT_NAME}Config.cmake" @ONLY)
 
   # two step configuration for the configVersion. 

@@ -3,6 +3,7 @@
 # It provides the following variables
 # MTCA4U_INCLUDE_FLAGS
 # MTCA4U_LIB_FLAGS
+# MTCA4U_RUNPATH_FLAGS
 # MTCA4U_DIR
 
 #FIXME: Until the name of MtcaMappedDevice has been changed we provide
@@ -12,5 +13,7 @@
 MTCA4U_INCLUDE_FLAGS=-I@MtcaMappedDevice_DIR@/include/MtcaMappedDevice
 
 MTCA4U_LIB_FLAGS=-L@MtcaMappedDevice_DIR@/lib -lMtcaMappedDevice
+
+MTCA4U_RUNPATH_FLAGS=-Wl,-rpath=@MtcaMappedDevice_DIR@/lib,--enable-new-dtags 
 
 MTCA4U_DIR=@MTCA4U_DIR@
