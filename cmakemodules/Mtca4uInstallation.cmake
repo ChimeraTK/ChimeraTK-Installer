@@ -1,5 +1,7 @@
 include(ExternalProject)
 
+project("MTCA4U")
+
 set(MTCA4U_VERSION_FILE "MTCA4U_VERSION_${MTCA4U_VERSION}")
 include(${MTCA4U_VERSION_FILE})
 
@@ -49,6 +51,21 @@ MACRO(mtca4uInstallation)
   installSubPackage("QtHardMon" "-DMtcaMappedDevice_DIR=${MtcaMappedDevice_DIR}")
 
   message("This is mtca4uInstallation installing to ${MTCA4U_BASE_DIR}/${MTCA4U_VERSION}.")
+
+  configure_file(${PROJECT_SOURCE_DIR}/cmakemodules//${PROJECT_NAME}.CONFIG.in
+    "${MTCA4U_DIR}/${PROJECT_NAME}CONFIG" @ONLY)
+
+  configure_file(${PROJECT_SOURCE_DIR}/cmakemodules//${PROJECT_NAME}Config.cmake.in
+    "${MTCA4U_DIR}/${PROJECT_NAME}Config.cmake" @ONLY)
+
+  # two step configuration for the configVersion. 
+  # step one: replace the generic name with mtca4u
+  configure_file(cmakemodules/GenericConfigVersion.cmake.in.in
+    "${PROJECT_BINARY_DIR}/cmake/${PROJECT_NAME}ConfigVersion.cmake.in" @ONLY)
+  #step two: set the version for the project
+  configure_file(${PROJECT_BINARY_DIR}/cmake/${PROJECT_NAME}ConfigVersion.cmake.in
+    "${MTCA4U_DIR}/${PROJECT_NAME}ConfigVersion.cmake" @ONLY)
+
 ENDMACRO(mtca4uInstallation)
 
 

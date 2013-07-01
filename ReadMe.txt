@@ -33,7 +33,9 @@ the mtca4u source directory. This will download, compile and install the latest 
 ~/mtca4u_source> ./install.sh
 
 In case you want to install to a different directory adapt the  MTCA4U_BASE_DIR in the CMakeLists.txt file
-before executing the script.
+before executing the script. For installations on network drives (nfs, afs) which can be mounted from different
+architectures it is recommended to add the architecture to the MTCA4U_BASE_DIR, for instance 
+set(MTCA4U_BASE_DIR "$ENV{HOME}/mtca4u/Ubuntu-12.04-x86_64")
 
 Executing the HardMon:
 Just execute $HOME/mtca4u/[MTCA4U_VERSION]/QtHardMon/[QT_HARD_MON_VERSION]/bin/QtHardMon. The full path with the 
