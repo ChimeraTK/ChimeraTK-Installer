@@ -1,4 +1,4 @@
-mtca4u is a meta package which will install its sub packages. Currently these are
+mtca4u_installer is a meta package which will install the mtca4u sub packages. Currently these are
 - MtcaMappedDevice (aka libdevMap from llrfCtrl/toolsForServer/desy-libs/libs-src)
 - QtHardMon
 The installation is done from source code. You need the C++ development tools (compiler etc.) installed on your
@@ -22,17 +22,18 @@ package name and install mechanism can be different.
 
 Download:
 You can download the source code of the mtca4u meta package directly from the source code repository:
-(The name of the download directory on your hard drive can be chosen freely. In this ReadMe we use mtca4u_source.)
+(The name of the download directory on your hard drive, which is the last argument of the command, can be chosen freely.
+ In this ReadMe we use mtca4u_installer.)
 
-~> svn checkout https://svnsrv.desy.de/public/mtca4u/mtca4u/trunk mtca4u_source
+~> svn checkout https://svnsrv.desy.de/public/mtca4u/mtca4u_installer/trunk mtca4u_installer
 
 Installation:
 To perform the default installation to your home directory ($HOME/mtca4u) just run the install.sh script in 
-the mtca4u source directory. This will download, compile and install the latest release version of mtca4u.
+the mtca4u_installer directory. This will download, compile and install the latest release version of mtca4u.
 
-~/mtca4u_source> ./install.sh
+~/mtca4u_installer> ./install.sh
 
-In case you want to install to a different directory adapt the  MTCA4U_BASE_DIR in the CMakeLists.txt file
+In case you want to install to a different directory adapt the MTCA4U_BASE_DIR in the CMakeLists.txt file
 before executing the script. For installations on network drives (nfs, afs) which can be mounted from different
 architectures it is recommended to add the architecture to the MTCA4U_BASE_DIR, for instance 
 set(MTCA4U_BASE_DIR "$ENV{HOME}/mtca4u/Ubuntu-12.04-x86_64")
@@ -65,16 +66,16 @@ This comes with QtHardMon 00.02.02, which will be installed to  /home/dummyuser/
 Step 2: Configuration
 Create a build directory and run cmake. cmake now reads your system environment and creates a Makefile for you.
 
-In the mtca4u source directory:
-~/mtca4u_source> mkdir build
-~/mtca4u_source> cd build
-~/mtca4u_source/build> cmake ..
+In the mtca4u_installer directory:
+~/mtca4u_installer> mkdir build
+~/mtca4u_installer> cd build
+~/mtca4u_installer/build> cmake ..
 
 Step 3:
 Run the installation.
 
 Just type 'make' in the build directory.
-mtca4u_source/build> make
+mtca4u_installer/build> make
 
 After a successful installation you can remove the build directory.
 
@@ -89,7 +90,7 @@ Example:
 In this example we use the 00.02.00 version of mtca4u and set the MtcaMappedDevice version to HEAD. We chose the 
 rather lengthy, but descriptive name/version string  "00.02.00_with_MtcaMappedDevice_HEAD".
 
-~/mtca4u_source/cmakemodules> cp MTCA_VERSION_00.02.00.cmake MTCA_VERSION_00.02.00_with_MtcaMappedDevice_HEAD.cmake
+~/mtca4u_installer/cmakemodules> cp MTCA_VERSION_00.02.00.cmake MTCA_VERSION_00.02.00_with_MtcaMappedDevice_HEAD.cmake
 
 Now open the new file in a text editor and change
 set(MtcaMappedDevice_VERSION "00.02.00")
@@ -101,5 +102,5 @@ just run install.sh. The installation will go to $/HOME/mtca4u/00.02.00_with_Mtc
 change the MTCA4U_BASE_DIR).
 
 Note: The released versions of mtca4u contain a combination of versions of the sub packages which are known to
-work together, es well all the HEAD version should work together. When creating your own combination of sub packages
+work together, as well as all the HEAD versions should work together. When creating your own combination of sub packages
 this might not be the case. Or it might break later, when the HEAD of a package is evolving.

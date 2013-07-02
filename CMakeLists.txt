@@ -13,8 +13,9 @@ set(MTCA4U_BASE_DIR "$ENV{HOME}/mtca4u")
 #
 #Recommended for network file systems: add the architecture
 #set(MTCA4U_BASE_DIR "$ENV{HOME}/mtca4u/Ubuntu-12.04-x86_64")
-#There might already be a system variable defined, for DOOCS e.g.
-#set(MTCA4U_BASE_DIR "$ENV{HOME}/mtca4u/$ENV{DOOCSARCH}")
+#There might already be a system variable defined, or a directory
+#where you would like to install it. For DOOCS e.g.
+#set(MTCA4U_BASE_DIR "$ENV{HOME}/doocs/mtca4u/$ENV{DOOCSARCH}")
 
 #Set the version number or HEAD.
 #See Releases.txt for more information and a list of available revisions.
