@@ -1,0 +1,18 @@
+# - Config file for the  MTCA4U package
+# It defines the following variables
+# MTCA4U_INCLUDE_DIRS : include directories for MTCA4U
+# MTCA4U_LIBRARIES    : libraries to link against
+# MTCA4U_LIBRARY_DIRS : path to the library directory
+# MTCA4U_VERSION      : the version of this library
+ 
+# Currently only MtcaMappedDevice is a linkable library. The QtHardMon is an executable, nothing to reuse.
+include(MtcaMappedDeviceConfig.cmake)
+
+set(MTCA4U_INCLUDE_DIRS ${MtcaMappedDevice_INCLUDE_DIRS})
+set(MTCA4U_LIBRARY_DIRS ${MtcaMappedDevice_LIBRARY_DIRS})
+
+set(MTCA4U_LIBRARIES ${MtcaMappedDevice_LIBRARIES})
+message("MTCA4U_LIBRARIES ${MTCA4U_LIBRARIES}")
+
+set(MTCA4U_VERSION @MTCA4U_VERSION@)
+

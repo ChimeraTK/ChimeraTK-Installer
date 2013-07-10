@@ -1,0 +1,27 @@
+# A configuration to be loaded in regular Makefile
+#
+# It provides the following variables
+# MTCA4U_INCLUDE_FLAGS
+# MTCA4U_LIB_FLAGS
+# MTCA4U_RUNPATH_FLAGS
+# MTCA4U_DIR
+#
+# This version is tuned for the system-integrated installation with debian
+# packages, which means the libraries and binaries are in the standard system
+# pathes. For this reason some of the variables are empty.
+# To keep your source code compatible with MTCA4U installations from source
+# code, which are located in different directories,
+# it is strongly recommended to use all flags in your Makefile, although they
+# are empty in this special case.
+
+#FIXME: Until the name of MtcaMappedDevice has been changed we provide
+# the namespace subdirectory as part of the include path.
+# This will change, so the include will be #include <MtcaMappedDevice/header.h>
+# instead of  #include <header.h>
+MTCA4U_INCLUDE_FLAGS=-I/usr/include/MtcaMappedDevice
+
+MTCA4U_LIB_FLAGS=-lMtcaMappedDevice
+
+MTCA4U_RUNPATH_FLAGS=
+
+MTCA4U_DIR=/usr/share/mtca4u

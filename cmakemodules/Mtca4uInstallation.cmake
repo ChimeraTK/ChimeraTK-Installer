@@ -43,6 +43,15 @@ MACRO(installSubPackage subPackage addidionalCMakeArgs)
 
 ENDMACRO(installSubPackage)
 
+  # two step configuration for the configVersion. 
+  # step one: replace the generic name with mtca4u
+  # We have to perform this before calling the mtca4uInstallation macro because
+  # it is also needed by  make_debian_package.
+  # This is ok because we are only writing to the build directory. The other configures
+  # go directly to the install directory.
+  configure_file(cmakemodules/GenericConfigVersion.cmake.in.in
+    "${PROJECT_BINARY_DIR}/cmake/${PROJECT_NAME}ConfigVersion.cmake.in" @ONLY)
+
 # The mtca4uInstallation stores which sub-packages to install and where they are located
 MACRO(mtca4uInstallation)
   
@@ -58,14 +67,10 @@ MACRO(mtca4uInstallation)
   configure_file(${PROJECT_SOURCE_DIR}/cmakemodules/${PROJECT_NAME}Config.cmake.in
     "${MTCA4U_DIR}/${PROJECT_NAME}Config.cmake" @ONLY)
 
-  # two step configuration for the configVersion. 
-  # step one: replace the generic name with mtca4u
-  configure_file(cmakemodules/GenericConfigVersion.cmake.in.in
-    "${PROJECT_BINARY_DIR}/cmake/${PROJECT_NAME}ConfigVersion.cmake.in" @ONLY)
-  #step two: set the version for the project
+  #step two of the configVersion configuration: set the version for the project
   configure_file(${PROJECT_BINARY_DIR}/cmake/${PROJECT_NAME}ConfigVersion.cmake.in
     "${MTCA4U_DIR}/${PROJECT_NAME}ConfigVersion.cmake" @ONLY)
 
 ENDMACRO(mtca4uInstallation)
 
-
+include(${PROJECT_SOURCE_DIR}/cmakemodules/prepare_debian_package.cmake)

@@ -1,0 +1,22 @@
+Source: mtca4u
+#Section: unknown
+Priority: extra
+Maintainer: Martin Killenberg <martin.killenberg@desy.de>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.2
+#Homepage: <insert the upstream URL, if relevant>
+
+Package: dev-mtca4u
+Architecture: any
+Depends: mtca4u (= ${binary:Version}), dev-mtcamappeddevice (= @MtcaMappedDevice_VERSION@-@DEBIAN_CODENAME@1)
+Description: The development files for mtca4u
+ We provide cmake FindPackage and PackageConfig files as well as a config
+ file for use with standard Makefiles.
+
+Package: mtca4u
+Architecture: any
+Depends: mtcamappeddevice@MtcaMappedDevice_DEBIAN_SUFFIX@ (=  @MtcaMappedDevice_VERSION@-@DEBIAN_CODENAME@1), qthardmon (= @QtHardMon_VERSION@-@DEBIAN_CODENAME@1) 
+Description: DESY MicroTCA.4 User Tool Kit
+ mtca4u is a meta package which installs all the packages which belong to 
+ the DESY MicroTCA.4 User Tool Kit, which currently are the MtcaMappedDevice
+ library and QtHardMon.
