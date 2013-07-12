@@ -1,12 +1,13 @@
 Source: mtca4u
-#Section: unknown
+Section: metapackages
 Priority: extra
 Maintainer: Martin Killenberg <martin.killenberg@desy.de>
-Build-Depends: debhelper (>= 8.0.0)
-Standards-Version: 3.9.2
+Build-Depends: debhelper (>= 7)
+Standards-Version: 3.8.3
 #Homepage: <insert the upstream URL, if relevant>
 
 Package: dev-mtca4u
+Section: devel
 Architecture: any
 #We require at least the current versions, but major and minor number must stay the same.
 #Like this patches are allowed, while the interface stays the same and the current patch
@@ -17,6 +18,7 @@ Description: The development files for mtca4u
  file for use with standard Makefiles.
 
 Package: mtca4u
+Section: metapackages
 Architecture: any
 #For the binaries we only guarantee a minimum version
 Depends: mtcamappeddevice@MtcaMappedDevice_DEBIAN_SUFFIX@ (>=  @MtcaMappedDevice_VERSION@), qthardmon (>= @QtHardMon_VERSION@) 
