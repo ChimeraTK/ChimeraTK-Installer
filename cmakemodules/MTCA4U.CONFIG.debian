@@ -18,7 +18,7 @@
 # the namespace subdirectory as part of the include path.
 # This will change, so the include will be #include <MtcaMappedDevice/header.h>
 # instead of  #include <header.h>
-MTCA4U_INCLUDE_FLAGS=-I/usr/include/MtcaMappedDevice
+MTCA4U_INCLUDE_FLAGS=-I/usr/include/mtca4u/MtcaMappedDevice
 
 MTCA4U_LIB_FLAGS=-lMtcaMappedDevice
 
