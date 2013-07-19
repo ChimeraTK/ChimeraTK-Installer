@@ -73,4 +73,6 @@ MACRO(mtca4uInstallation)
 
 ENDMACRO(mtca4uInstallation)
 
-include(${PROJECT_SOURCE_DIR}/cmakemodules/prepare_debian_package.cmake)
+if(NOT MTCA4U_VERSION STREQUAL "HEAD" )
+  include(${PROJECT_SOURCE_DIR}/cmakemodules/prepare_debian_package.cmake)
+endif(NOT MTCA4U_VERSION STREQUAL "HEAD" )
