@@ -71,3 +71,11 @@ configure_file(${CMAKE_SOURCE_DIR}/cmakemodules/make_debian_package.sh.in
 #(You could instead run make_debian_package.sh yourself, hm...)
 add_custom_target(debian_package ${CMAKE_BINARY_DIR}/make_debian_package.sh
                   COMMENT Building debian package for tag ${MTCA4U_VERSION})
+
+#For convenience: Also create an install script for DESY
+set(PACKAGE_NAME "mtca4u")
+set(PACKAGE_DEV_NAME "dev-mtca4u")
+set(PACKAGE_FILES_WILDCARDS "${PACKAGE_NAME}_*.deb ${PACKAGE_DEV_NAME}_*.deb ${PACKAGE_NAME}_*.changes")
+
+configure_file(${CMAKE_SOURCE_DIR}/cmakemodules/install_debian_package_at_DESY.sh.in
+               install_debian_package_at_DESY.sh @ONLY)
