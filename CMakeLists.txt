@@ -19,7 +19,7 @@ set(MTCA4U_BASE_DIR "$ENV{HOME}/mtca4u")
 
 #Set the version number or HEAD.
 #See Releases.txt for more information and a list of available revisions.
-set(MTCA4U_VERSION "00.08.00")
+set(MTCA4U_VERSION "00.08.01")
 #set(MTCA4U_VERSION "HEAD")
 
 include(${CMAKE_SOURCE_DIR}/cmakemodules/Mtca4uInstallation.cmake)
