@@ -1,0 +1,12 @@
+# Load this file using the option -C/path/to/MTCAInitialCache.cmake when
+# running cmake. This allows to use all libraries provided by this 
+# MTCA4U installation.
+
+set(CMAKE_PREFIX_PATH  
+       @MtcaMappedDevice_DIR@
+       @MotorDriverCard_DIR@
+       CACHE PATH "CMAKE_PREFIX_PATH" FORCE)
+
+message("(CMAKE_PREFIX_PATH is ${CMAKE_PREFIX_PATH}")
+set(MTCA4U_VERSION HEAD CACHE PATH "MTCA4U_VERSION")
+

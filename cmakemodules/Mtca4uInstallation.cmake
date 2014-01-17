@@ -21,55 +21,49 @@ ENDIF("${isSystemDir}" STREQUAL "-1")
 set(SVN_BASE_DIR "https://svnsrv.desy.de/public/mtca4u")
 
 #macro to set and intstall the sub package as external project from the svn repository
-MACRO(installSubPackage subPackage addidionalCMakeArgs)
+MACRO(installSubPackage subPackage addidionalCMakeArgs dependecies)
 
-  set(${subPackage}_DIR "${MTCA4U_DIR}/${subPackage}/${${subPackage}_VERSION}")
+  # If a subpackage is not defined, it is not added. This allows
+  # to control which subpackages are installed from the version file.
+  if( ${subPackage}_VERSION )
 
-  if( ${subPackage}_VERSION STREQUAL "HEAD" )
-    #use the svn trunk in case of the head version
-    set(${subPackage}_SVN_DIR "${SVN_BASE_DIR}/${subPackage}/trunk")
-  else( ${subPackage}_VERSION STREQUAL "HEAD" )
-    #use the tagged version
-    set(${subPackage}_SVN_DIR "${SVN_BASE_DIR}/${subPackage}/tags/${${subPackage}_VERSION}")
-  endif( ${subPackage}_VERSION STREQUAL "HEAD" )
+    set(${subPackage}_DIR "${MTCA4U_DIR}/${subPackage}/${${subPackage}_VERSION}")
 
-  message("${subPackage}_VERSION is ${${subPackage}_VERSION}")
+    if( ${subPackage}_VERSION STREQUAL "HEAD" )
+      #use the svn trunk in case of the head version
+      set(${subPackage}_SVN_DIR "${SVN_BASE_DIR}/${subPackage}/trunk")
+    else( ${subPackage}_VERSION STREQUAL "HEAD" )
+      #use the tagged version
+      set(${subPackage}_SVN_DIR "${SVN_BASE_DIR}/${subPackage}/tags/${${subPackage}_VERSION}")
+    endif( ${subPackage}_VERSION STREQUAL "HEAD" )
 
-  ExternalProject_Add(mtca4u-${subPackage} 
-    SVN_REPOSITORY ${${subPackage}_SVN_DIR}
-    CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${${subPackage}_DIR} ${addidionalCMakeArgs}
-    INSTALL_DIR ${${subPackage}_DIR}
-    )
+    message("${subPackage}_VERSION is ${${subPackage}_VERSION}")
 
+    ExternalProject_Add(mtca4u-${subPackage} 
+      DEPENDS ${dependecies}
+      SVN_REPOSITORY ${${subPackage}_SVN_DIR}
+      CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${${subPackage}_DIR} ${addidionalCMakeArgs}
+      INSTALL_DIR ${${subPackage}_DIR}
+      )
+
+     endif( ${subPackage}_VERSION )  
 ENDMACRO(installSubPackage)
-
-  # two step configuration for the configVersion. 
-  # step one: replace the generic name with mtca4u
-  # We have to perform this before calling the mtca4uInstallation macro because
-  # it is also needed by  make_debian_package.
-  # This is ok because we are only writing to the build directory. The other configures
-  # go directly to the install directory.
-  configure_file(cmakemodules/GenericConfigVersion.cmake.in.in
-    "${PROJECT_BINARY_DIR}/cmake/${PROJECT_NAME}ConfigVersion.cmake.in" @ONLY)
 
 # The mtca4uInstallation stores which sub-packages to install and where they are located
 MACRO(mtca4uInstallation)
   
-  installSubPackage("MtcaMappedDevice" "")
+  installSubPackage("MtcaMappedDevice" "" "")
 
-  installSubPackage("QtHardMon" "-DMtcaMappedDevice_DIR=${MtcaMappedDevice_DIR}")
+  installSubPackage("QtHardMon" "-DMtcaMappedDevice_DIR=${MtcaMappedDevice_DIR}" "mtca4u-MtcaMappedDevice")
+  installSubPackage("MotorDriverCard" "-DMtcaMappedDevice_DIR=${MtcaMappedDevice_DIR}" "mtca4u-MtcaMappedDevice")
 
   message("This is mtca4uInstallation installing to ${MTCA4U_BASE_DIR}/${MTCA4U_VERSION}.")
 
-  configure_file(${PROJECT_SOURCE_DIR}/cmakemodules//${PROJECT_NAME}.CONFIG.in
+  configure_file(${PROJECT_SOURCE_DIR}/cmakemodules/${PROJECT_NAME}InitialCache.cmake.in
+    "${MTCA4U_DIR}/${PROJECT_NAME}InitialCache.cmake" @ONLY)
+
+  configure_file(${PROJECT_SOURCE_DIR}/cmakemodules/${PROJECT_NAME}.CONFIG.in
     "${MTCA4U_DIR}/${PROJECT_NAME}.CONFIG" @ONLY)
-
-  configure_file(${PROJECT_SOURCE_DIR}/cmakemodules/${PROJECT_NAME}Config.cmake.in
-    "${MTCA4U_DIR}/${PROJECT_NAME}Config.cmake" @ONLY)
-
-  #step two of the configVersion configuration: set the version for the project
-  configure_file(${PROJECT_BINARY_DIR}/cmake/${PROJECT_NAME}ConfigVersion.cmake.in
-    "${MTCA4U_DIR}/${PROJECT_NAME}ConfigVersion.cmake" @ONLY)
 
 ENDMACRO(mtca4uInstallation)
 

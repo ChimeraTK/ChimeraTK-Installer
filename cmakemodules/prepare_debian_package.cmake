@@ -1,12 +1,6 @@
 # prepare the files to be installed by the debian package
 set(DEBIAN_PACKAGE_DIR ${PROJECT_BINARY_DIR}/debian_package/mtca4u_${${PROJECT_NAME}_VERSION})
 
-configure_file(${PROJECT_BINARY_DIR}/cmake/${PROJECT_NAME}ConfigVersion.cmake.in
-  "${DEBIAN_PACKAGE_DIR}/${CMAKE_ROOT}/Modules/${PROJECT_NAME}ConfigVersion.cmake" @ONLY)
-  
-configure_file(${PROJECT_SOURCE_DIR}/cmakemodules/${PROJECT_NAME}Config.cmake.debian.in
-  "${DEBIAN_PACKAGE_DIR}/${CMAKE_ROOT}/Modules/${PROJECT_NAME}Config.cmake" @ONLY)
-
 configure_file(${PROJECT_SOURCE_DIR}/cmakemodules/${PROJECT_NAME}.CONFIG.debian
   ${DEBIAN_PACKAGE_DIR}/usr/share/mtca4u/${PROJECT_NAME}.CONFIG)
 

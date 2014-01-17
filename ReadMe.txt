@@ -1,14 +1,19 @@
 mtca4u_installer is a meta package which will install the mtca4u sub packages. Currently these are
 - MtcaMappedDevice (aka libdevMap from llrfCtrl/toolsForServer/desy-libs/libs-src)
 - QtHardMon
+- MotorDriverCard
 The installation is done from source code. You need the C++ development tools (compiler etc.) installed on your
 machine.
 
 Requirements:
 You need cmake (at least version 2.8.3), which is used as the build system.
 In addition you need the Subversion version control client installed (svn).
+The libraries use C++ Boost, so you need the development libraries.
+For the unit tests you need the Boost testing framework in addition. They are optional and not required to build the packages.
 To build the QtHardMon, you also need the Qt4 development libraries installed. For the plotting functionality
 QWT 6 is required in addition.
+MotorDriverCard reqires the pugixml parser (currently the 1.3desy version, which has a patch to read hex values. See (*) below 
+the dependeny list.)
 
 You have to install these packages with the package manager of your Linux distribution before you can proceed
 with the installation. The list below shows the software component and the Ubuntu 12.4 package name in
@@ -17,8 +22,18 @@ package name and install mechanism can be different.
 
 - CMake (cmake)
 - Subversion (subversion)
-- Qt4 development libraries (libqt4-dev)
-- QWT development libraries (libqwt-dev)
+- Boost (libboost-dev)
+- Boost Test Library (libboost-test-dev) // Unit tests only, optional
+- Qt4 development libraries (libqt4-dev) // QtHardMon only
+- QWT development libraries (libqwt-dev) // QtHardMon plotting only, optional
+- pugixml (dev-pugixml)(*) // MotorDriverCard only (**)
+
+(*) You need the dev-pugixml libraries with the DESY patch for reading hex values. For Ubuntu 10.4 and 12.4 
+this is available from the DESY debian package servers http://doocspkgs.desy.de/pub/doocs (DESY internal)
+and http://doocs.desy.de/pub/doocs (from outside of DESY). For all other cases it has to be installed from
+the source code, which can be found at http://www.desy.de/~killenb/pugixml-desy/.
+
+(**) The MtcaMapped device will also be changed to XML mapping files, so pugixml will become a general requirement soon.
 
 Download:
 You can download the source code of the mtca4u meta package directly from the source code repository:
@@ -83,10 +98,11 @@ Expert installation:
 
 You can also create custom versions of the sub packages to install. For instance you do not want all the HEAD
 versions but only the HEAD of the MtcaMappedDevice sub package, and all the other versions from the latest
-release. To perform this installation you have to create a new MTCA_VERSION_*.cmake file in the cmakemodules
+release (see example 1). Or you might want to skip QtHardMon in case the Qt4 development environment is not available (example 2)
+To perform this installation you have to create a new MTCA_VERSION_*.cmake file in the cmakemodules
 directory, usually by copying and adapting an existing one.
 
-Example:
+Example 1:
 In this example we use the 00.02.00 version of mtca4u and set the MtcaMappedDevice version to HEAD. We chose the 
 rather lengthy, but descriptive name/version string  "00.02.00_with_MtcaMappedDevice_HEAD".
 
@@ -104,3 +120,8 @@ change the MTCA4U_BASE_DIR).
 Note: The released versions of mtca4u contain a combination of versions of the sub packages which are known to
 work together, as well as all the HEAD versions should work together. When creating your own combination of sub packages
 this might not be the case. Or it might break later, when the HEAD of a package is evolving.
+
+Example 2:
+You want to exclude QtHardMon from the installation. Copy the version file MTCA_VERSION_00.02.00.cmake file to
+00.02.00_without_QtHardMon. Open the latter and simply delete or uncomment the 'set(QtHardMon_VERSION 00.02.02)' line.
+Now adapt the CMakeLists.txt as described in example 1.
