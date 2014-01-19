@@ -49,21 +49,44 @@ MACRO(installSubPackage subPackage addidionalCMakeArgs dependecies)
      endif( ${subPackage}_VERSION )  
 ENDMACRO(installSubPackage)
 
+MACRO(checkOrInstallPugixml)
+   #pugixml is only needed for MTCA4U from 00.09 on 
+   if( (${MTCA4U_VERSION} VERSION_GREATER "00.08.01") OR 
+       (${MTCA4U_VERSION} STREQUAL "HEAD") )
+     if( INSTALL_PUGIXML )
+        # fixme:  cmake/desy installer for pugixml plus checkout from the
+     	# official pugixml after the next tag
+      	set(pugixml_external_project_name "installed_pugixml")
+      	set(pugixml_DIR "${MTCA4U_DIR}/pugixml/1.3desy")
+      	ExternalProject_Add(${pugixml_external_project_name}
+	    DOWNLOAD_COMMAND rm -rf ${pugixml_external_project_name} && bzr export ${pugixml_external_project_name} http://www.desy.de/~killenb/pugixml-desy
+	    CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${pugixml_DIR}" "${addidionalCMakeArgs}"
+	    INSTALL_DIR ${pugixml_DIR}
+	    )
+	set( pugixml_FOUND true )
+     else( INSTALL_PUGIXML )    	   
+       find_package(pugixml ${pugixml_MIN_VERSION})
+     endif( INSTALL_PUGIXML )
+
+     if( NOT pugixml_FOUND )
+       message( FATAL_ERROR "pugixml not found. Edit the CMakeLists.txt file and either provide pugixml_DIR or set INSTALL_PUGIXML to true to have it installed together with mtca4u" )
+     endif( NOT pugixml_FOUND )
+   endif( (${MTCA4U_VERSION} VERSION_GREATER "00.08.01") OR 
+          (${MTCA4U_VERSION} STREQUAL "HEAD")  )
+ENDMACRO(checkOrInstallPugixml)
+
 # The mtca4uInstallation stores which sub-packages to install and where they are located
 MACRO(mtca4uInstallation)
   
   find_package(Boost REQUIRED)
-
-  find_package(pugixml 1.3)
-  if( NOT pugixml_FOUND )
-    message( FATAL_ERROR "pugixml not found. Edit the CMakeLists.txt file and either provide pugixml_DIR or set INSTALL_PUGIXML to true to have it installed together with mtca4u" )
-  endif( NOT pugixml_FOUND )
+  checkOrInstallPugixml()
 
   installSubPackage("MtcaMappedDevice" "" "")
 
   installSubPackage("QtHardMon" "-DMtcaMappedDevice_DIR=${MtcaMappedDevice_DIR}" "mtca4u-MtcaMappedDevice")
   installSubPackage("MotorDriverCard"
-  "-DMtcaMappedDevice_DIR=${MtcaMappedDevice_DIR};-Dpugixml_DIR=${pugixml_DIR}" "mtca4u-MtcaMappedDevice")
+	"-DMtcaMappedDevice_DIR=${MtcaMappedDevice_DIR};-Dpugixml_DIR=${pugixml_DIR}"
+	"mtca4u-MtcaMappedDevice;${pugixml_external_project_name}")
 
   message("This is mtca4uInstallation installing to ${MTCA4U_BASE_DIR}/${MTCA4U_VERSION}.")
 
