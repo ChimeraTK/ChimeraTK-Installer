@@ -42,7 +42,7 @@ MACRO(installSubPackage subPackage addidionalCMakeArgs dependecies)
     ExternalProject_Add(mtca4u-${subPackage} 
       DEPENDS ${dependecies}
       SVN_REPOSITORY ${${subPackage}_SVN_DIR}
-      CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${${subPackage}_DIR} ${addidionalCMakeArgs}
+      CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${${subPackage}_DIR}" "${addidionalCMakeArgs}"
       INSTALL_DIR ${${subPackage}_DIR}
       )
 
@@ -52,10 +52,18 @@ ENDMACRO(installSubPackage)
 # The mtca4uInstallation stores which sub-packages to install and where they are located
 MACRO(mtca4uInstallation)
   
+  find_package(Boost REQUIRED)
+
+  find_package(pugixml 1.3)
+  if( NOT pugixml_FOUND )
+    message( FATAL_ERROR "pugixml not found. Edit the CMakeLists.txt file and either provide pugixml_DIR or set INSTALL_PUGIXML to true to have it installed together with mtca4u" )
+  endif( NOT pugixml_FOUND )
+
   installSubPackage("MtcaMappedDevice" "" "")
 
   installSubPackage("QtHardMon" "-DMtcaMappedDevice_DIR=${MtcaMappedDevice_DIR}" "mtca4u-MtcaMappedDevice")
-  installSubPackage("MotorDriverCard" "-DMtcaMappedDevice_DIR=${MtcaMappedDevice_DIR}" "mtca4u-MtcaMappedDevice")
+  installSubPackage("MotorDriverCard"
+  "-DMtcaMappedDevice_DIR=${MtcaMappedDevice_DIR};-Dpugixml_DIR=${pugixml_DIR}" "mtca4u-MtcaMappedDevice")
 
   message("This is mtca4uInstallation installing to ${MTCA4U_BASE_DIR}/${MTCA4U_VERSION}.")
 

@@ -22,7 +22,10 @@ set(MTCA4U_BASE_DIR "$ENV{HOME}/mtca4u")
 set(MTCA4U_VERSION "00.08.01")
 #set(MTCA4U_VERSION "HEAD")
 
+#In case pugixml is not found set either the path where it can be found,
+#or chose it to be installed together with MTCA4U
+#set(pugixml_DIR "/wherever/pugixml/is/installed")
+#set(INSTALL_PUGIXML true)
+
 include(${CMAKE_SOURCE_DIR}/cmakemodules/Mtca4uInstallation.cmake)
 mtca4uInstallation()
-
-
