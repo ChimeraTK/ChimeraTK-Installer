@@ -53,6 +53,7 @@ MACRO(checkOrInstallPugixml)
    #pugixml is only needed for MTCA4U from 00.09 on 
    if( (${MTCA4U_VERSION} VERSION_GREATER "00.08.01") OR 
        (${MTCA4U_VERSION} STREQUAL "HEAD") )
+
      if( INSTALL_PUGIXML )
         # fixme:  cmake/desy installer for pugixml plus checkout from the
      	# official pugixml after the next tag

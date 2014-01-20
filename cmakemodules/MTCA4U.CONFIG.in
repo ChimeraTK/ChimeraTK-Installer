@@ -5,7 +5,7 @@
 
 # Note: For custom installations where not all sub-packages are installed the
 # variables for the missing packages are set, but are invalid and must not be used.
-# As the package is missing, the compilation will fail anyways it the missing
+# As the package is missing, the compilation will fail anyways if the missing
 # sub-package was required.
 
 #FIXME: Until the name of MtcaMappedDevice has been changed we provide

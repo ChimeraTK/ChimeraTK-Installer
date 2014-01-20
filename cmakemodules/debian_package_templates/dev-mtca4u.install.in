@@ -1,3 +1,0 @@
-usr/share/mtca4u/*
-#the ./ is needed to convert the absolute CMAKE_ROOT to a relative path
-./@CMAKE_ROOT@/Modules/*
