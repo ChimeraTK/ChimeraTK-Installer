@@ -12,7 +12,7 @@ Architecture: any
 #We require at least the current versions, but major and minor number must stay the same.
 #Like this patches are allowed, while the interface stays the same and the current patch
 #level is guaranteed.
-Depends: mtca4u (>= @MTCA4U_VERSION@),  mtca4u (<< @MTCA4U_NEXT_SOVERSION@), dev-mtcamappeddevice (>= @MtcaMappedDevice_VERSION@), dev-mtcamappeddevice (<< @MtcaMappedDevice_NEXT_SOVERSION@), dev-motordrivercard (>= @MotorDriverCard_VERSION@), dev-motordrivercard (<< @MotorDriverCard_NEXT_SOVERSION@)
+Depends: mtca4u (>= @MTCA4U_VERSION@),  mtca4u (<< @MTCA4U_NEXT_SOVERSION@), dev-mtcamappeddevice (>= @MtcaMappedDevice_VERSION@), dev-mtcamappeddevice (<< @MtcaMappedDevice_NEXT_SOVERSION@), dev-mtca4u-motordrivercard (>= @MotorDriverCard_VERSION@), dev-mtca4u-motordrivercard (<< @MotorDriverCard_NEXT_SOVERSION@)
 Description: The development files for mtca4u
  We provide cmake FindPackage and PackageConfig files as well as a config
  file for use with standard Makefiles.
@@ -21,7 +21,7 @@ Package: mtca4u
 Section: metapackages
 Architecture: any
 #For the binaries we only guarantee a minimum version
-Depends: mtcamappeddevice@MtcaMappedDevice_DEBIAN_SUFFIX@ (>=  @MtcaMappedDevice_VERSION@), qthardmon (>= @QtHardMon_VERSION@), motordrivercard@MotorDriverCard_DEBIAN_SUFFIX@ (>=  @MotorDriverCard_VERSION@)
+Depends: mtcamappeddevice@MtcaMappedDevice_DEBIAN_SUFFIX@ (>=  @MtcaMappedDevice_VERSION@), qthardmon (>= @QtHardMon_VERSION@), mtca4u-motordrivercard@MotorDriverCard_DEBIAN_SUFFIX@ (>=  @MotorDriverCard_VERSION@)
 Description: DESY MicroTCA.4 User Tool Kit
  mtca4u is a meta package which installs all the packages which belong to 
  the DESY MicroTCA.4 User Tool Kit, which currently are the MtcaMappedDevice and MotorDriverCard
