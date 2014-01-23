@@ -8,11 +8,7 @@
 # As the package is missing, the compilation will fail anyways if the missing
 # sub-package was required.
 
-#FIXME: Until the name of MtcaMappedDevice has been changed we provide
-# the namespace subdirectory as part of the include path.
-# This will change, so the include will be #include <MtcaMappedDevice/header.h>
-# instead of  #include <header.h>
-MtcaMappedDevice_INCLUDE_FLAGS=-I@MtcaMappedDevice_DIR@/include/MtcaMappedDevice -I@MtcaMappedDevice_DIR@/include
+MtcaMappedDevice_INCLUDE_FLAGS=-I@MtcaMappedDevice_DIR@/include
 MtcaMappedDevice_LIB_FLAGS=-L@MtcaMappedDevice_DIR@/lib -lMtcaMappedDevice
 MtcaMappedDevice_RUNPATH_FLAGS=-Wl,-rpath=@MtcaMappedDevice_DIR@/lib,--enable-new-dtags
 
