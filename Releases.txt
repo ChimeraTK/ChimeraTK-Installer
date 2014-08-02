@@ -6,6 +6,65 @@ Rerunning the install script will update the existing installation to the curren
 Tagged releases:
 The tagged releases consist of a set of sub package releases which are known to work together.
 
+"00.12.00"
+Features:
+- MtcaMappedDevice 00.10.00 provides automatic fixed type conversion.
+- QtHardMon upgrade from 00.05.01 to 00.08.00
+-- Added hex value display. No input in hex possible at the moment.
+-- Implemented DMA read (from bar 0xD)
+-- Introduced open/close button for device.
+-- Background of modified fields is changing to red
+-- Several bug fixes
+
+"00.11.00"
+-- Increased MtcaMappedDevice to 00.09.00. It does not contain any new feature,
+   but has bug fixes which are is incompatible to 00.07.00.
+   Thus a new, consistent version of MTCA4U.
+
+"00.10.00"
+- moved all classes in MtcaMappedDevice into the mtca4u namespace
+- removed the 'convenince' include of the MtcaMappedDevice subdirectory
+  from the MtcaMappedDevice_INCLUDE_FLAGS. Together with the namespace
+  it allows the parallel use of UTCApcie and mtca4u.
+Attention: This finally breaks the backward compatibility to the original
+library. You have to change e.g. '#include <devPCIE.h>' to
+'#include <MtcaMappedDevice/devPCIE.h' and add the mtca4u namespace.
+
+"00.09.02"
+- fixed dependency in debian control file
+
+"00.09.01"
+fixed dependency problem of debian develeopment package
+
+"00.09.00"
+Features:
+- License changed to GPL 3+
+- Started to implement unit tests
+- MtcaMappedDevice: devPcie now supports llrfuni and pciedev drivers
+- QtHardMon: font size change and read on click in the register list
+- New package: MotorDriverCard
+Bug fixes:
+- QtHardMon: index in value list starts at 0
+
+"00.08.00"
+Updated version 00.04.00 of MtcaMappedDevice:
+- Added new convenience function to open devMap objects.
+Bug fix in installer:
+- Fixed installation for the HEAD version (debian packages are disabled in this case)
+
+"00.07.02"
+- Fixed include path in MTCA4U.CONFIG
+
+"00.07.01"
+- Changed mtca4u subdirectory name to mtca4u_installer.
+- Added config templates and a shell script for debian packages.
+
+"00.07.00"
+- Added config files for cmake and regular Makefiles.
+
+"00.06.01"
+- Fixed required cmake version to compile with Ubuntu 10.4 (had been promissed for tag 00.06.00, but was missing)
+
 "00.06.00"
 New features:
 - MtcaMappedDevice: Getter function in dmapFilesParser which returns a dmapElem
