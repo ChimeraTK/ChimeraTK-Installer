@@ -21,7 +21,7 @@ Package: mtca4u
 Section: metapackages
 Architecture: any
 #For the binaries we only guarantee a minimum version
-Depends: mtcamappeddevice@MtcaMappedDevice_DEBIAN_SUFFIX@ (>=  @MtcaMappedDevice_VERSION@), qthardmon (>= @QtHardMon_VERSION@), mtca4u-motordrivercard@MotorDriverCard_DEBIAN_SUFFIX@ (>=  @MotorDriverCard_VERSION@)
+Depends: mtcamappeddevice@MtcaMappedDevice_DEBIAN_SUFFIX@ (>=  @MtcaMappedDevice_VERSION@), qthardmon (>= @QtHardMon_VERSION@), mtca4u-motordrivercard@MotorDriverCard_DEBIAN_SUFFIX@ (>=  @MotorDriverCard_VERSION@), mtca4u-motordrivercard-configcalculator (>=  @MotorDriverCard_VERSION@)
 Description: DESY MicroTCA.4 User Tool Kit
  mtca4u is a meta package which installs all the packages which belong to 
  the DESY MicroTCA.4 User Tool Kit, which currently are the MtcaMappedDevice and MotorDriverCard

@@ -6,6 +6,25 @@ Rerunning the install script will update the existing installation to the curren
 Tagged releases:
 The tagged releases consist of a set of sub package releases which are known to work together.
 
+"00.14.00"
+Features:
+- MtcaMappedDevice 00.11.00
+-- Complete test suite (almost 100 % code coverage)
+- MotorDriverCard 00.04.00
+-- Config calculators which produce XML motor configurations
+   from the motor parameters (command line and Qt version)
+-- Improved config for the VT21 stepper motor
+Bug fixes:
+- MtcaMappedDevice
+-- relative and absolute pathes of dmap and map files are now working
+- MotorDriverCard
+-- Fixed typo in a parameter name (acceleration was written with two 'l's)
+Attention: The old config files need to be updated.
+The parser is throwing an exception:
+"Found old, invalid Register name maximumAccelleration. Please update your config file!"
+This is done to prevent this parameter from being ignored if the config
+is not updated.
+
 "00.13.00"
 Features:
 - MotorDriverCard 00.03.00
