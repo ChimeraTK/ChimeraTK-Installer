@@ -88,6 +88,7 @@ MACRO(mtca4uInstallation)
   installSubPackage("MotorDriverCard"
 	"-DMtcaMappedDevice_DIR=${MtcaMappedDevice_DIR};-Dpugixml_DIR=${pugixml_DIR}"
 	"mtca4u-MtcaMappedDevice;${pugixml_external_project_name}")
+  installSubPackage("CommandLineTools" "-DMtcaMappedDevice_DIR=${MtcaMappedDevice_DIR}" "mtca4u-MtcaMappedDevice")
 
   message("This is mtca4uInstallation installing to ${MTCA4U_BASE_DIR}/${MTCA4U_VERSION}.")
 
