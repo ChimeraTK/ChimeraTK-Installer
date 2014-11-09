@@ -10,7 +10,7 @@ The tagged releases consist of a set of sub package releases which are known to 
 Features:
 - MtcaMappedDevice 00.12.00
 -- Support for the upciedev driver
-- CommandLineTools 00.01.00
+- CommandLineTools 00.01.01
 
 "00.14.00"
 Features:
