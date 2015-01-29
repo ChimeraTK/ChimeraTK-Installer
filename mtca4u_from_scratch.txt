@@ -1,0 +1,46 @@
+This is a short step-by-step guide which does not give much background information. It refers to other documents for further reading.
+
+Components
+Driver: pcieuni
+C++ user space library: MtcaMappedDevice
+Language bindings for MtcaMappedDevice: CommandLineTools, PythonBindings (early alpha), MatLab
+GUI: QtHardMon
+
+Installation:
+Driver:
+- Download the latest tags of gpcieuni and pcieuni from https://svnsrv.desy.de/public/mtca4u/drivers/
+  You need both. pcieuni is a modular driver which is based on gpcieuni, so you have to intall the latter first.
+  To find the latest tag number run svn ls.
+$ svn ls https://svnsrv.desy.de/public/mtca4u/drivers/gpcieuni/tags
+  0.1.0/
+  0.1.1/
+$ svn co https://svnsrv.desy.de/public/mtca4u/drivers/gpcieuni/tags/0.1.1 gpcieuni_0.1.1
+
+- Install it by running 'make install'. You need the C-compiler and the headers for the kernel, as well as the DKMS package
+  (dynamic kernel managenemt support) from you linux distrubution to be installed.
+$ cd gpcieuni_0.1.1
+$ sudo make install
+
+User space components (all the rest):
+There in an installer which you can download from  https://svnsrv.desy.de/public/mtca4u/mtca4u_installer.
+
+- Pick the latest tag and download it
+$ svn ls https://svnsrv.desy.de/public/mtca4u/mtca4u_installer/tags
+  ...
+  0.16.1/
+$ svn co https://svnsrv.desy.de/public/mtca4u/drivers/mtca4u_installer/tags/0.16.1 mtca4u_installer_0.16.1
+
+- Read the ReadMe.txt file and install all required dependencies with your package manager
+- You will have to "set(INSTALL_PUGIXML true)" in CMakeLists.txt or alternatively have to modify the selection of MTCA4U sub-packages and remove MotorDriverCard
+  (see "Expert installation" at the end of the ReadMe.txt for the latter).
+- Go to the installer directory and call the install script
+$ cd mtca4u_installer_0.16.1
+$ ./install.sh
+
+- Read the QtHardMon User Guide https://svnsrv.desy.de/public/mtca4u/QtHardMon/trunk/doc/user_guide/QtHardMon_user_guide.pdf
+  (You should have received a map file together with your firmware)
+  Run ~/mtca4u/00.16.01/QtHardMon/00.09.00/bin/QtHardMon
+- To write a C++ application have a look at the MtcaMappedDevice Doxygen documentation under
+  ~/mtca4u/00.16.01/MtcaMappedDevice/00.12.01/doc/html (or wherever you installed it)
+  and read "Adapting your Makefile" in ReadME.DOOCS.txt in the installer source directory.
+  An initial cache file for CMake is located in  ~/mtca4u/00.16.01

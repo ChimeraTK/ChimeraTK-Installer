@@ -8,6 +8,13 @@ file(COPY  ${CMAKE_SOURCE_DIR}/ReadMe.txt ${CMAKE_SOURCE_DIR}/ReadMe.DOOCS.txt $
 
 # now prepare the debian package control files
 MACRO( createDebianControlVariables subPackage )
+  if( NOT ${${subPackage}_VERSION} )
+    #In older versions not all packages are available.
+    #This also allows CMake to configure correctly with custom configuration, where not all packages are installed.
+    #In this case you cannot create a debian package, which is intentional.
+    return()
+  endif( NOT ${${subPackage}_VERSION} )
+
   #Create major and minor version from the library version MM.mm.pp
   #What the regex does:
   # () creates a reference 
@@ -44,6 +51,7 @@ ENDMACRO( createDebianControlVariables )
 createDebianControlVariables( MtcaMappedDevice )
 createDebianControlVariables( MotorDriverCard )
 createDebianControlVariables( MTCA4U )
+createDebianControlVariables( CommandLineTools )
 
 #Nothing to change, just copy
 file(COPY ${CMAKE_SOURCE_DIR}/cmakemodules/debian_package_templates/compat

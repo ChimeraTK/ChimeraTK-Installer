@@ -19,7 +19,7 @@ set(MTCA4U_BASE_DIR "$ENV{HOME}/mtca4u")
 
 #Set the version number or HEAD.
 #See Releases.txt for more information and a list of available revisions.
-set(MTCA4U_VERSION "00.16.00")
+set(MTCA4U_VERSION "00.16.01")
 #set(MTCA4U_VERSION "HEAD")
 
 #In case pugixml is not found set either the path where it can be found,

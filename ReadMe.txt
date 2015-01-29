@@ -2,6 +2,7 @@ mtca4u_installer is a meta package which will install the mtca4u sub packages. C
 - MtcaMappedDevice (aka libdevMap from llrfCtrl/toolsForServer/desy-libs/libs-src)
 - QtHardMon
 - MotorDriverCard
+- CommandLineTools
 The installation is done from source code. You need the C++ development tools (compiler etc.) installed on your
 machine.
 
@@ -28,10 +29,15 @@ package name and install mechanism can be different.
 - QWT development libraries (libqwt-dev) // QtHardMon plotting only, optional
 - pugixml (dev-pugixml)(*) // MotorDriverCard only (**)
 
+Recommended to get documentation:
+- Doxygen (doxygen)
+
 (*) You need the dev-pugixml libraries with the DESY patch for reading hex values. For Ubuntu 10.4 and 12.4 
 this is available from the DESY debian package servers http://doocspkgs.desy.de/pub/doocs (DESY internal)
 and http://doocs.desy.de/pub/doocs (from outside of DESY). For all other cases it has to be installed from
 the source code, which can be found at http://www.desy.de/~killenb/pugixml-desy/.
+The MTCA4U installer can automatically install pugixml for you. Just "set(INSTALL_PUGIXML true)" in the CMakeLists.txt.
+In this case you also need the bazaar (bzr) version control package installed.
 
 (**) The MtcaMapped device will also be changed to XML mapping files, so pugixml will become a general requirement soon.
 
@@ -98,13 +104,15 @@ Expert installation:
 
 You can also create custom versions of the sub packages to install. For instance you do not want all the HEAD
 versions but only the HEAD of the MtcaMappedDevice sub package, and all the other versions from the latest
-release (see example 1). Or you might want to skip QtHardMon in case the Qt4 development environment is not available (example 2)
+release (see example 1). Or you might want to skip QtHardMon in case the Qt4 development environment is not available (example 2).
 To perform this installation you have to create a new MTCA_VERSION_*.cmake file in the cmakemodules
-directory, usually by copying and adapting an existing one.
+directory, usually by copying and adapting an existing one. Another use case is skipping the MotorDriverCard if you don't
+want to bother with installing pugixml.
 
 Example 1:
 In this example we use the 00.02.00 version of mtca4u and set the MtcaMappedDevice version to HEAD. We chose the 
 rather lengthy, but descriptive name/version string  "00.02.00_with_MtcaMappedDevice_HEAD".
+Note that the version string has to start with the version number so the internal parser runs successfully.
 
 ~/mtca4u_installer/cmakemodules> cp MTCA_VERSION_00.02.00.cmake MTCA_VERSION_00.02.00_with_MtcaMappedDevice_HEAD.cmake
 
@@ -123,5 +131,5 @@ this might not be the case. Or it might break later, when the HEAD of a package 
 
 Example 2:
 You want to exclude QtHardMon from the installation. Copy the version file MTCA_VERSION_00.02.00.cmake file to
-00.02.00_without_QtHardMon. Open the latter and simply delete or uncomment the 'set(QtHardMon_VERSION 00.02.02)' line.
+00.02.00_without_QtHardMon.cmake . Open the latter and simply delete or uncomment the 'set(QtHardMon_VERSION 00.02.02)' line.
 Now adapt the CMakeLists.txt as described in example 1.
