@@ -25,9 +25,14 @@ package name and install mechanism can be different.
 - Subversion (subversion)
 - Boost (libboost-dev)
 - Boost Test Library (libboost-test-dev) // Unit tests only, optional
+- Boost Filesystem (libboost-filesystem-dev) // Unit tests only, optional
+- Boost Thread (libboost-thread-dev) // MotorDriverCard only
 - Qt4 development libraries (libqt4-dev) // QtHardMon only
 - QWT development libraries (libqwt-dev) // QtHardMon plotting only, optional
 - pugixml (dev-pugixml)(*) // MotorDriverCard only (**)
+
+In Ubuntu you can install libboost-all-dev, which installs all boost development packages, if you don't want to
+hand-pick the boost dependencies.
 
 Recommended to get documentation:
 - Doxygen (doxygen)
