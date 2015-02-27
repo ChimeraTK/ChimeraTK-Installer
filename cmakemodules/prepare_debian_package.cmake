@@ -8,44 +8,41 @@ file(COPY  ${CMAKE_SOURCE_DIR}/ReadMe.txt ${CMAKE_SOURCE_DIR}/ReadMe.DOOCS.txt $
 
 # now prepare the debian package control files
 MACRO( createDebianControlVariables subPackage )
-  if( NOT ${${subPackage}_VERSION} )
-    #In older versions not all packages are available.
-    #This also allows CMake to configure correctly with custom configuration, where not all packages are installed.
-    #In this case you cannot create a debian package, which is intentional.
-    return()
-  endif( NOT ${${subPackage}_VERSION} )
-
-  #Create major and minor version from the library version MM.mm.pp
-  #What the regex does:
-  # () creates a reference 
-  # . any character
-  # .+ multiple characters, at least one
-  # \. a dot, as \ has to be escaped in cmake it's \\.
-  # \1 the first reference, \\1 as \ has to be escaped
-  # First reference: everything up to the first .
-  # Second reference: everything between the first and second .
-  string(REGEX REPLACE "(.+)\\.(.+)\\..+" "\\1" ${subPackage}_MAJOR_VERSION ${${subPackage}_VERSION})
-  string(REGEX REPLACE "(.+)\\.(.+)\\..+" "\\2" ${subPackage}_MINOR_VERSION ${${subPackage}_VERSION})
-  
-  set(${subPackage}_DEBIAN_SUFFIX "${${subPackage}_MAJOR_VERSION}-${${subPackage}_MINOR_VERSION}")
-   #increase the minor version by one
-  MATH(EXPR ${subPackage}_NEXT_MINOR_VERSION "${${subPackage}_MINOR_VERSION}+1")
-  #ensure that there is a leading 0 for numbers up to 9
-  if( ${subPackage}_NEXT_MINOR_VERSION LESS 10 )
-    string(REGEX REPLACE "^(.)$" "0\\1" ${subPackage}_NEXT_MINOR_VERSION ${${subPackage}_NEXT_MINOR_VERSION})
-  endif( ${subPackage}_NEXT_MINOR_VERSION LESS 10 )
-  
-  set(${subPackage}_NEXT_SOVERSION "${${subPackage}_MAJOR_VERSION}.${${subPackage}_NEXT_MINOR_VERSION}")
-  #message("${subPackage}_NEXT_SOVERSION ${${subPackage}_NEXT_SOVERSION}")
-  
-  #The same for the MTCA4U version
-  string(REGEX REPLACE "(.+)\\.(.+)\\..+" "\\1" MTCA4U_MAJOR_VERSION ${MTCA4U_VERSION})
-  string(REGEX REPLACE "(.+)\\.(.+)\\..+" "\\2" MTCA4U_MINOR_VERSION ${MTCA4U_VERSION})
-  #increase the minor version by one
-  MATH(EXPR MTCA4U_NEXT_MINOR_VERSION "${MTCA4U_MINOR_VERSION}+1")
-  #ensure that there is a leading 0 for numbers up to 9
-  string(REGEX REPLACE "^(.)$" "0\\1" MTCA4U_NEXT_MINOR_VERSION ${MTCA4U_NEXT_MINOR_VERSION})
-  
+  #In older versions not all packages are available.
+  #This also allows CMake to configure correctly with custom configuration, where not all packages are installed.
+  #In this case you cannot create a debian package, which is intentional.
+  if( DEFINED ${subPackage}_VERSION )
+    #Create major and minor version from the library version MM.mm.pp
+    #What the regex does:
+    # () creates a reference 
+    # . any character
+    # .+ multiple characters, at least one
+    # \. a dot, as \ has to be escaped in cmake it's \\.
+    # \1 the first reference, \\1 as \ has to be escaped
+    # First reference: everything up to the first .
+    # Second reference: everything between the first and second .
+    string(REGEX REPLACE "(.+)\\.(.+)\\..+" "\\1" ${subPackage}_MAJOR_VERSION ${${subPackage}_VERSION})
+    string(REGEX REPLACE "(.+)\\.(.+)\\..+" "\\2" ${subPackage}_MINOR_VERSION ${${subPackage}_VERSION})
+    
+    set(${subPackage}_DEBIAN_SUFFIX "${${subPackage}_MAJOR_VERSION}-${${subPackage}_MINOR_VERSION}")
+    #increase the minor version by one
+    MATH(EXPR ${subPackage}_NEXT_MINOR_VERSION "${${subPackage}_MINOR_VERSION}+1")
+    #ensure that there is a leading 0 for numbers up to 9
+    if( ${subPackage}_NEXT_MINOR_VERSION LESS 10 )
+      string(REGEX REPLACE "^(.)$" "0\\1" ${subPackage}_NEXT_MINOR_VERSION ${${subPackage}_NEXT_MINOR_VERSION})
+    endif( ${subPackage}_NEXT_MINOR_VERSION LESS 10 )
+    
+    set(${subPackage}_NEXT_SOVERSION "${${subPackage}_MAJOR_VERSION}.${${subPackage}_NEXT_MINOR_VERSION}")
+    #message("${subPackage}_NEXT_SOVERSION ${${subPackage}_NEXT_SOVERSION}")
+    
+    #The same for the MTCA4U version
+    string(REGEX REPLACE "(.+)\\.(.+)\\..+" "\\1" MTCA4U_MAJOR_VERSION ${MTCA4U_VERSION})
+    string(REGEX REPLACE "(.+)\\.(.+)\\..+" "\\2" MTCA4U_MINOR_VERSION ${MTCA4U_VERSION})
+    #increase the minor version by one
+    MATH(EXPR MTCA4U_NEXT_MINOR_VERSION "${MTCA4U_MINOR_VERSION}+1")
+    #ensure that there is a leading 0 for numbers up to 9
+    string(REGEX REPLACE "^(.)$" "0\\1" MTCA4U_NEXT_MINOR_VERSION ${MTCA4U_NEXT_MINOR_VERSION})
+  endif( DEFINED ${subPackage}_VERSION )
 ENDMACRO( createDebianControlVariables )
 
 createDebianControlVariables( MtcaMappedDevice )
