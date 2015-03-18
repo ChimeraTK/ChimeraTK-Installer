@@ -60,7 +60,7 @@ MACRO(checkOrInstallPugixml)
       	set(pugixml_external_project_name "installed_pugixml")
       	set(pugixml_DIR "${MTCA4U_DIR}/pugixml/1.3desy")
       	ExternalProject_Add(${pugixml_external_project_name}
-	    DOWNLOAD_COMMAND rm -rf ${pugixml_external_project_name} && bzr export ${pugixml_external_project_name} http://www.desy.de/~killenb/pugixml-desy
+	    DOWNLOAD_COMMAND rm -rf ${pugixml_external_project_name} && bzr export ${pugixml_external_project_name} -r tag:1.3-desy http://www.desy.de/~killenb/pugixml-desy 
 	    CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${pugixml_DIR}" "${addidionalCMakeArgs}"
 	    INSTALL_DIR ${pugixml_DIR}
 	    )
