@@ -13,8 +13,8 @@ The libraries use C++ Boost, so you need the development libraries.
 For the unit tests you need the Boost testing framework in addition. They are optional and not required to build the packages.
 To build the QtHardMon, you also need the Qt4 development libraries installed. For the plotting functionality
 QWT 6 is required in addition.
-MotorDriverCard reqires the pugixml parser (currently the 1.3desy version, which has a patch to read hex values. See (*) below 
-the dependeny list.)
+MotorDriverCard reqires the pugixml parser (version 1.4 or higher, including Findpugixml.cmake, which is in the DESY version.
+  See (*) below the dependeny list.)
 
 You have to install these packages with the package manager of your Linux distribution before you can proceed
 with the installation. The list below shows the software component and the Ubuntu 12.4 package name in
@@ -25,14 +25,20 @@ package name and install mechanism can be different.
 - Subversion (subversion)
 - Boost (libboost-dev)
 - Boost Test Library (libboost-test-dev) // Unit tests only, optional
+- Boost Filesystem (libboost-filesystem-dev) // Unit tests only, optional
+- Boost Thread (libboost-thread-dev) // MotorDriverCard only
 - Qt4 development libraries (libqt4-dev) // QtHardMon only
 - QWT development libraries (libqwt-dev) // QtHardMon plotting only, optional
-- pugixml (dev-pugixml)(*) // MotorDriverCard only (**)
+- pugixml (libpugixml-dev)(*) // MotorDriverCard only (**)
+
+In Ubuntu you can install libboost-all-dev, which installs all boost development packages, if you don't want to
+hand-pick the boost dependencies.
 
 Recommended to get documentation:
 - Doxygen (doxygen)
 
-(*) You need the dev-pugixml libraries with the DESY patch for reading hex values. For Ubuntu 10.4 and 12.4 
+(*) You need the libpugixml-dev libraries with Findpugixml.cmake. They are provided in the DESY version of the package.
+For Ubuntu 12.4 and 14.4 
 this is available from the DESY debian package servers http://doocspkgs.desy.de/pub/doocs (DESY internal)
 and http://doocs.desy.de/pub/doocs (from outside of DESY). For all other cases it has to be installed from
 the source code, which can be found at http://www.desy.de/~killenb/pugixml-desy/.
