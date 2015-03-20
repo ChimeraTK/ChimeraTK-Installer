@@ -55,12 +55,15 @@ MACRO(checkOrInstallPugixml)
        (${MTCA4U_VERSION} STREQUAL "HEAD") )
 
      if( INSTALL_PUGIXML )
-        # fixme:  cmake/desy installer for pugixml plus checkout from the
-     	# official pugixml after the next tag
+       if( ${pugixml_MIN_VERSION} VERSION_EQUAL "1.3" )
+	  message( FATAL_ERROR "Error: pugixml version 1.3 requested. Please use the latest patch tag!" )
+        endif( ${pugixml_MIN_VERSION} VERSION_EQUAL "1.3" )
+
+        set(pugixml_INSTALL_VERSION "1.4")
       	set(pugixml_external_project_name "installed_pugixml")
-      	set(pugixml_DIR "${MTCA4U_DIR}/pugixml/1.3desy")
+      	set(pugixml_DIR "${MTCA4U_DIR}/pugixml/${pugixml_INSTALL_VERSION}")
       	ExternalProject_Add(${pugixml_external_project_name}
-	    DOWNLOAD_COMMAND rm -rf ${pugixml_external_project_name} && bzr export ${pugixml_external_project_name} http://www.desy.de/~killenb/pugixml-desy
+	    DOWNLOAD_COMMAND rm -rf ${pugixml_external_project_name} && bzr export ${pugixml_external_project_name} -r tag:${pugixml_INSTALL_VERSION} http://www.desy.de/~killenb/pugixml-desy 
 	    CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${pugixml_DIR}" "${addidionalCMakeArgs}"
 	    INSTALL_DIR ${pugixml_DIR}
 	    )
@@ -88,6 +91,7 @@ MACRO(mtca4uInstallation)
   installSubPackage("MotorDriverCard"
 	"-DMtcaMappedDevice_DIR=${MtcaMappedDevice_DIR};-Dpugixml_DIR=${pugixml_DIR}"
 	"mtca4u-MtcaMappedDevice;${pugixml_external_project_name}")
+  installSubPackage("CommandLineTools" "-DMtcaMappedDevice_DIR=${MtcaMappedDevice_DIR}" "mtca4u-MtcaMappedDevice")
 
   message("This is mtca4uInstallation installing to ${MTCA4U_BASE_DIR}/${MTCA4U_VERSION}.")
 
