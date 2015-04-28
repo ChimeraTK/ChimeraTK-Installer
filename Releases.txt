@@ -6,6 +6,14 @@ Rerunning the install script will update the existing installation to the curren
 Tagged releases:
 The tagged releases consist of a set of sub package releases which are known to work together.
 
+"00.19.01"
+Bug fixes:
+- QtHardMon 00.13.01
+  -- Fixed typo in error message: regiter -> register.
+  -- Cleared the table values when the module name in the register list is
+     selected.
+  -- Initialized pointer _zoomer to null in the PlotWindow class constructor.
+
 "00.19.00"
 Features:
 - MtcaMappedDevice 00.15.00
