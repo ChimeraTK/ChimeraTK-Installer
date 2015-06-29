@@ -6,6 +6,17 @@ Rerunning the install script will update the existing installation to the curren
 Tagged releases:
 The tagged releases consist of a set of sub package releases which are known to work together.
 
+"00.20.00"
+Features:
+  - MtcaMappedDevice 00.17.00
+    -- modified returntype of devMap::getRegisterAccessor. This now returns a
+       shared pointer to a RegisterAccessor Object
+    -- introduced MultiplexedDataAccessor and devMap::getCustomAccessor
+
+  - CommandLineTools 00.05.00
+    -- Introduced new command: read_seq
+    -- removed read_dma_raw 
+
 "00.19.01"
 Bug fixes:
 - QtHardMon 00.13.01
