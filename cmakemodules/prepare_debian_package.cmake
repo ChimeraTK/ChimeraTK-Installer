@@ -49,6 +49,7 @@ createDebianControlVariables( MtcaMappedDevice )
 createDebianControlVariables( MotorDriverCard )
 createDebianControlVariables( MTCA4U )
 createDebianControlVariables( CommandLineTools )
+createDebianControlVariables( mtca4uPy )
 
 #Nothing to change, just copy
 file(COPY ${CMAKE_SOURCE_DIR}/cmakemodules/debian_package_templates/compat

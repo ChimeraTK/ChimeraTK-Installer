@@ -21,7 +21,7 @@ ENDIF("${isSystemDir}" STREQUAL "-1")
 set(SVN_BASE_DIR "https://svnsrv.desy.de/public/mtca4u")
 
 #macro to set and intstall the sub package as external project from the svn repository
-MACRO(installSubPackage subPackage addidionalCMakeArgs dependecies)
+MACRO(installSubPackage subPackage addidionalCMakeArgs dependecies svnSubDirectory)
 
   # If a subpackage is not defined, it is not added. This allows
   # to control which subpackages are installed from the version file.
@@ -29,12 +29,18 @@ MACRO(installSubPackage subPackage addidionalCMakeArgs dependecies)
 
     set(${subPackage}_DIR "${MTCA4U_DIR}/${subPackage}/${${subPackage}_VERSION}")
 
+    if ("${svnSubDirectory}" STREQUAL "")
+      set( SVN_SUB_DIR "${subPackage}" )
+    else ("${svnSubDirectory}" STREQUAL "")
+      set( SVN_SUB_DIR "${svnSubDirectory}" )
+    endif ("${svnSubDirectory}" STREQUAL "")
+
     if( ${subPackage}_VERSION STREQUAL "HEAD" )
       #use the svn trunk in case of the head version
-      set(${subPackage}_SVN_DIR "${SVN_BASE_DIR}/${subPackage}/trunk")
+      set(${subPackage}_SVN_DIR "${SVN_BASE_DIR}/${SVN_SUB_DIR}/trunk")
     else( ${subPackage}_VERSION STREQUAL "HEAD" )
       #use the tagged version
-      set(${subPackage}_SVN_DIR "${SVN_BASE_DIR}/${subPackage}/tags/${${subPackage}_VERSION}")
+      set(${subPackage}_SVN_DIR "${SVN_BASE_DIR}/${SVN_SUB_DIR}/tags/${${subPackage}_VERSION}")
     endif( ${subPackage}_VERSION STREQUAL "HEAD" )
 
     message("${subPackage}_VERSION is ${${subPackage}_VERSION}")
@@ -85,13 +91,14 @@ MACRO(mtca4uInstallation)
   find_package(Boost REQUIRED)
   checkOrInstallPugixml()
 
-  installSubPackage("MtcaMappedDevice" "" "")
+  installSubPackage("MtcaMappedDevice" "" "" "")
 
-  installSubPackage("QtHardMon" "-DMtcaMappedDevice_DIR=${MtcaMappedDevice_DIR}" "mtca4u-MtcaMappedDevice")
+  installSubPackage("QtHardMon" "-DMtcaMappedDevice_DIR=${MtcaMappedDevice_DIR}" "mtca4u-MtcaMappedDevice" "")
   installSubPackage("MotorDriverCard"
 	"-DMtcaMappedDevice_DIR=${MtcaMappedDevice_DIR};-Dpugixml_DIR=${pugixml_DIR}"
-	"mtca4u-MtcaMappedDevice;${pugixml_external_project_name}")
-  installSubPackage("CommandLineTools" "-DMtcaMappedDevice_DIR=${MtcaMappedDevice_DIR}" "mtca4u-MtcaMappedDevice")
+	"mtca4u-MtcaMappedDevice;${pugixml_external_project_name}" "")
+  installSubPackage("CommandLineTools" "-DMtcaMappedDevice_DIR=${MtcaMappedDevice_DIR}" "mtca4u-MtcaMappedDevice" "")
+  installSubPackage("mtca4uPy" "-DMtcaMappedDevice_DIR=${MtcaMappedDevice_DIR}" "mtca4u-MtcaMappedDevice" "PythonBindings/MtcaMappedDevice")
 
   message("This is mtca4uInstallation installing to ${MTCA4U_BASE_DIR}/${MTCA4U_VERSION}.")
 
