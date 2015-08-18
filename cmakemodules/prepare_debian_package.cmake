@@ -88,3 +88,6 @@ set(PACKAGE_FILES_WILDCARDS "${PACKAGE_NAME}_*.deb ${PACKAGE_DEV_NAME}_*.deb ${P
 
 configure_file(${CMAKE_SOURCE_DIR}/cmakemodules/install_debian_package_at_DESY.sh.in
                install_debian_package_at_DESY.sh @ONLY)
+
+configure_file(${CMAKE_SOURCE_DIR}/cmakemodules/prepare_dependent_debian_packages.py.in
+               prepare_dependent_debian_packages.py @ONLY)

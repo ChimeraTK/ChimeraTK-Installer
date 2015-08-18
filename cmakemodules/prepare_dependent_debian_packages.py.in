@@ -1,0 +1,34 @@
+#!/usr/bin/python
+
+# This script is preparing/building the debian packages for those
+# sub-packages which depend on MtcaMappedDevice, but not MtcaMappedDevice itself
+
+from subprocess import call
+import os
+
+svnBaseUrl="https://svnsrv.desy.de/desy/mtca4u"
+
+def prepare_dependent_debian_package( package_name, svn_sub_directory, version ):
+  package_directory=package_name+"_"+version
+  svnUrl=svnBaseUrl + "/" + svn_sub_directory+"/tags/"+ version
+  if call(["svn","co",svnUrl,package_directory]):
+    print( package_name+": could not check out " + svnUrl )
+    return
+  os.chdir(package_directory)
+  os.mkdir("build")
+  os.chdir("build")
+  if call(["cmake",".."]):
+    print( package_name+": error running cmake" )
+    return
+  if call(["make","debian_package"]):
+    print( package_name+": error creating debian package" )
+    return
+
+prepare_dependent_debian_package( "mtca4uPy", "PythonBindings/MtcaMappedDevice",
+                               "@mtca4uPy_VERSION@" )
+prepare_dependent_debian_package( "MotorDriverCard", "MotorDriverCard",
+                               "@MotorDriverCard_VERSION@" )
+prepare_dependent_debian_package( "QtHardMon", "QtHardMon",
+                               "@QtHardMon_VERSION@" )
+prepare_dependent_debian_package( "CommandLineTools", "CommandLineTools",
+                               "@CommandLineTools_VERSION@" )
