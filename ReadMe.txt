@@ -3,6 +3,7 @@ mtca4u_installer is a meta package which will install the mtca4u sub packages. C
 - QtHardMon
 - MotorDriverCard
 - CommandLineTools
+- mtca4uPy (Python bindings for MtcaMappedDevice)
 The installation is done from source code. You need the C++ development tools (compiler etc.) installed on your
 machine.
 
@@ -30,6 +31,8 @@ package name and install mechanism can be different.
 - Qt4 development libraries (libqt4-dev) // QtHardMon only
 - QWT development libraries (libqwt-dev) // QtHardMon plotting only, optional
 - pugixml (libpugixml-dev)(*) // MotorDriverCard only (**)
+- Boost Python (libboost-python-dev) // mtca4uPy only
+- Numpy (python-numpy) // mtca4uPy only
 
 In Ubuntu you can install libboost-all-dev, which installs all boost development packages, if you don't want to
 hand-pick the boost dependencies.
@@ -111,7 +114,7 @@ Expert installation:
 You can also create custom versions of the sub packages to install. For instance you do not want all the HEAD
 versions but only the HEAD of the MtcaMappedDevice sub package, and all the other versions from the latest
 release (see example 1). Or you might want to skip QtHardMon in case the Qt4 development environment is not available (example 2).
-To perform this installation you have to create a new MTCA_VERSION_*.cmake file in the cmakemodules
+To perform this installation you have to create a new MTCA4U_VERSION_*.cmake file in the cmakemodules
 directory, usually by copying and adapting an existing one. Another use case is skipping the MotorDriverCard if you don't
 want to bother with installing pugixml.
 
@@ -120,7 +123,7 @@ In this example we use the 00.02.00 version of mtca4u and set the MtcaMappedDevi
 rather lengthy, but descriptive name/version string  "00.02.00_with_MtcaMappedDevice_HEAD".
 Note that the version string has to start with the version number so the internal parser runs successfully.
 
-~/mtca4u_installer/cmakemodules> cp MTCA_VERSION_00.02.00.cmake MTCA_VERSION_00.02.00_with_MtcaMappedDevice_HEAD.cmake
+~/mtca4u_installer/cmakemodules> cp MTCA4U_VERSION_00.02.00.cmake MTCA4U_VERSION_00.02.00_with_MtcaMappedDevice_HEAD.cmake
 
 Now open the new file in a text editor and change
 set(MtcaMappedDevice_VERSION "00.02.00")
@@ -136,6 +139,6 @@ work together, as well as all the HEAD versions should work together. When creat
 this might not be the case. Or it might break later, when the HEAD of a package is evolving.
 
 Example 2:
-You want to exclude QtHardMon from the installation. Copy the version file MTCA_VERSION_00.02.00.cmake file to
+You want to exclude QtHardMon from the installation. Copy the version file MTCA4U_VERSION_00.02.00.cmake file to
 00.02.00_without_QtHardMon.cmake . Open the latter and simply delete or uncomment the 'set(QtHardMon_VERSION 00.02.02)' line.
 Now adapt the CMakeLists.txt as described in example 1.

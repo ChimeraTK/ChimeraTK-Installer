@@ -6,6 +6,26 @@ Rerunning the install script will update the existing installation to the curren
 Tagged releases:
 The tagged releases consist of a set of sub package releases which are known to work together.
 
+"00.21.00"
+Features:
+ - QtHardMon 00.14.02
+ -- Support for the DemultiplexedSequenceAccessor
+ - MotorDriverCard 00.05.01
+ -- Support for multiple modules. Allows to have more than one MD22 per device.
+ - CommandLineTools 00.06.00
+   - read_dma changed to read_dma_raw: New command is intended to access
+    registers in the DMA region and return 32 bit values without fixed point
+    conversion.
+  - NEW: mtca4uPy 00.01.03 
+  -- Python bindings for MtcaMappedDevice
+
+Bug Fixes:
+ - CommandLineTools
+ -- Fixed segmmentation fault for read, read_dma_raw when numElements queried
+    was 0. This bug is only seen in the read command when the "raw"|"hex" option
+    was used.
+
+
 "00.20.01"
 Bug Fixes:
   - QtHardMon 00.13.02
