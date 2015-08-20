@@ -6,7 +6,7 @@
 from subprocess import call
 import os
 
-svnBaseUrl="https://svnsrv.desy.de/desy/mtca4u"
+svnBaseUrl="https://svnsrv.desy.de/public/mtca4u"
 
 def prepare_dependent_debian_package( package_name, svn_sub_directory, version ):
   package_directory=package_name+"_"+version
@@ -14,15 +14,19 @@ def prepare_dependent_debian_package( package_name, svn_sub_directory, version )
   if call(["svn","co",svnUrl,package_directory]):
     print( package_name+": could not check out " + svnUrl )
     return
+  orginal_working_directory=os.getcwd()
   os.chdir(package_directory)
   os.mkdir("build")
   os.chdir("build")
   if call(["cmake",".."]):
     print( package_name+": error running cmake" )
+    os.chdir(orginal_working_directory)
     return
   if call(["make","debian_package"]):
     print( package_name+": error creating debian package" )
+    os.chdir(orginal_working_directory)
     return
+  os.chdir(orginal_working_directory)
 
 prepare_dependent_debian_package( "mtca4uPy", "PythonBindings/MtcaMappedDevice",
                                "@mtca4uPy_VERSION@" )
