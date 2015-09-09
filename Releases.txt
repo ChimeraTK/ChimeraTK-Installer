@@ -6,6 +6,16 @@ Rerunning the install script will update the existing installation to the curren
 Tagged releases:
 The tagged releases consist of a set of sub package releases which are known to work together.
 
+"00.25.00"
+Features:
+ - mtca4uPy 00.03.00
+ -- introduced mtca4u.get_info
+
+Bug Fixes:
+ - mtca4uPy 00.03.00
+ -- Fixed segmentation fault for mtca4u.read_sequences 
+
+
 "00.24.00"
 Features:
  - mtca4uPy 00.02.00
