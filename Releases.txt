@@ -8,9 +8,14 @@ The tagged releases consist of a set of sub package releases which are known to 
 
 "00.24.01"
 Bug Fixes:
- - mtca4uPy 00.02.01
- -- Fixed segmentation fault for mtca4u.read_sequences 
-
+ - mtca4uPy 00.02.02
+ -- Fixed segmentation fault for mtca4u.read_sequences (since 00.02.01)
+ -- Performance improvement: Use numpy.empty instead of numpy.zeroes
+    to get placeholder arrays
+ - QtHardMon 00.014.03
+ -- Plot displays float without typecasting to int
+ - MotorDriverCard 00.06.01
+ -- CoolStep is now turned off by default
 
 "00.24.00"
 Features:
