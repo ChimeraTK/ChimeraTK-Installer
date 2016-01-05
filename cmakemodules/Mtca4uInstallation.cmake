@@ -6,7 +6,6 @@ set(MTCA4U_VERSION_FILE "MTCA4U_VERSION_${MTCA4U_VERSION}")
 include(${MTCA4U_VERSION_FILE})
 
 set(MTCA4U_DIR ${MTCA4U_BASE_DIR}/${MTCA4U_VERSION})
-#message("MtcaMappedDevice_VERSION ${MtcaMappedDevice_VERSION}")
 
 #turn on linking of the full rpath in installation
 SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
@@ -45,7 +44,7 @@ MACRO(installSubPackage subPackage addidionalCMakeArgs dependecies svnSubDirecto
 
     message("${subPackage}_VERSION is ${${subPackage}_VERSION}")
 
-    ExternalProject_Add(mtca4u-${subPackage} 
+    ExternalProject_Add(external-${subPackage} 
       DEPENDS ${dependecies}
       SVN_REPOSITORY ${${subPackage}_SVN_DIR}
       CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${${subPackage}_DIR}" "${addidionalCMakeArgs}"
@@ -91,14 +90,14 @@ MACRO(mtca4uInstallation)
   find_package(Boost REQUIRED)
   checkOrInstallPugixml()
 
-  installSubPackage("MtcaMappedDevice" "" "" "")
+  installSubPackage("mtca4u-deviceaccess" "" "" "deviceaccess")
 
-  installSubPackage("QtHardMon" "-DMtcaMappedDevice_DIR=${MtcaMappedDevice_DIR}" "mtca4u-MtcaMappedDevice" "")
+  installSubPackage("QtHardMon" "-Dmtca4u-deviceaccess_DIR=${mtca4u-deviceaccess_DIR}" "external-mtca4u-deviceaccess" "")
   installSubPackage("MotorDriverCard"
-	"-DMtcaMappedDevice_DIR=${MtcaMappedDevice_DIR};-Dpugixml_DIR=${pugixml_DIR}"
-	"mtca4u-MtcaMappedDevice;${pugixml_external_project_name}" "")
-  installSubPackage("CommandLineTools" "-DMtcaMappedDevice_DIR=${MtcaMappedDevice_DIR}" "mtca4u-MtcaMappedDevice" "")
-  installSubPackage("mtca4uPy" "-DMtcaMappedDevice_DIR=${MtcaMappedDevice_DIR}" "mtca4u-MtcaMappedDevice" "PythonBindings/MtcaMappedDevice")
+	"-Dmtca4u-deviceaccess_DIR=${mtca4u-deviceaccess_DIR};-Dpugixml_DIR=${pugixml_DIR}"
+	"external-mtca4u-deviceaccess;${pugixml_external_project_name}" "")
+  installSubPackage("CommandLineTools" "-Dmtca4u-deviceaccess_DIR=${mtca4u-deviceaccess_DIR}" "external-mtca4u-deviceaccess" "")
+  installSubPackage("mtca4uPy" "-Dmtca4u-deviceaccess_DIR=${mtca4u-deviceaccess_DIR}" "external-mtca4u-deviceaccess" "PythonBindings/MtcaMappedDevice")
 
   message("This is mtca4uInstallation installing to ${MTCA4U_BASE_DIR}/${MTCA4U_VERSION}.")
 

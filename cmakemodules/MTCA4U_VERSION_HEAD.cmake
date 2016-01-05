@@ -1,5 +1,5 @@
 #parts of mtca4u with their versions
-set(MtcaMappedDevice_VERSION "HEAD")
+set(mtca4u-deviceaccess_VERSION "HEAD")
 set(QtHardMon_VERSION "HEAD")
 set(MotorDriverCard_VERSION "HEAD")
 set(CommandLineTools_VERSION "HEAD")
