@@ -1,1 +1,0 @@
-MTCA4U_VERSION_00.07.01.cmake
