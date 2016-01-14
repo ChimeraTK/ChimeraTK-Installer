@@ -1,5 +1,5 @@
 mtca4u_installer is a meta package which will install the mtca4u sub packages. Currently these are
-- MtcaMappedDevice (aka libdevMap from llrfCtrl/toolsForServer/desy-libs/libs-src)
+- deviceaccess (successor of MtcaMappedDevice aka libdevMap from llrfCtrl/toolsForServer/desy-libs/libs-src)
 - QtHardMon
 - MotorDriverCard
 - CommandLineTools
@@ -25,8 +25,8 @@ package name and install mechanism can be different.
 - CMake (cmake)
 - Subversion (subversion)
 - Boost (libboost-dev)
-- Boost Test Library (libboost-test-dev) // Unit tests only, optional
-- Boost Filesystem (libboost-filesystem-dev) // Unit tests only, optional
+- Boost Test Library (libboost-test-dev)
+- Boost Filesystem (libboost-filesystem-dev) // MotorDriverCard only, optional
 - Boost Thread (libboost-thread-dev) // MotorDriverCard only
 - Qt4 development libraries (libqt4-dev) // QtHardMon only
 - QWT development libraries (libqwt-dev) // QtHardMon plotting only, optional
@@ -41,14 +41,12 @@ Recommended to get documentation:
 - Doxygen (doxygen)
 
 (*) You need the libpugixml-dev libraries with Findpugixml.cmake. They are provided in the DESY version of the package.
-For Ubuntu 12.4 and 14.4 
-this is available from the DESY debian package servers http://doocspkgs.desy.de/pub/doocs (DESY internal)
+For Ubuntu 12.4 and 14.4 this is available from the DESY debian package servers 
+http://doocspkgs.desy.de/pub/doocs (DESY internal)
 and http://doocs.desy.de/pub/doocs (from outside of DESY). For all other cases it has to be installed from
 the source code, which can be found at http://www.desy.de/~killenb/pugixml-desy/.
 The MTCA4U installer can automatically install pugixml for you. Just "set(INSTALL_PUGIXML true)" in the CMakeLists.txt.
 In this case you also need the bazaar (bzr) version control package installed.
-
-(**) The MtcaMapped device will also be changed to XML mapping files, so pugixml will become a general requirement soon.
 
 Download:
 You can download the source code of the mtca4u meta package directly from the source code repository:
@@ -89,56 +87,53 @@ For information about the available releases please refer to Releases.txt.
 
 The installation will always happen into a sub directory with the mtca4u version. Sub packages will be installed
 into a further sub directory with version number.
-Example: You specify /home/dummyuser/mtca4u as MTCA4U_BASE_DIR and want to install version 00.02.00.
-This comes with QtHardMon 00.02.02, which will be installed to  /home/dummyuser/mtca4u/00.02.00/QtHardMon/00.02.02
+Example: You specify /home/dummyuser/mtca4u as MTCA4U_BASE_DIR and want to install version 01.00.00.
+This comes with QtHardMon 00.15.02, which will be installed to  /home/dummyuser/mtca4u/01.00.00/QtHardMon/00.15.02
 
+Now run ./install.sh
 
-Step 2: Configuration
-Create a build directory and run cmake. cmake now reads your system environment and creates a Makefile for you.
+After a successful installation you can remove the automatically created build directory if you want to save space.
+However, if you run want to update later everything has to be recompiled, which takes time. If you keep the
+build directory only the changed files are recompiled.
 
-In the mtca4u_installer directory:
-~/mtca4u_installer> mkdir build
-~/mtca4u_installer> cd build
-~/mtca4u_installer/build> cmake ..
+Staying up to date:
 
-Step 3:
-Run the installation.
-
-Just type 'make' in the build directory.
-mtca4u_installer/build> make
-
-After a successful installation you can remove the build directory.
+If you are using ${LATEST_VERSION} or "HEAD" (or a custom version which has the HEAD of one or more packages)
+you can simply run 'svn update' and rerun ./install. This is especially usefull for the HEAD version.
+If you don't remove the build directory, the installer will just call 'svn update' and only the stuff which has
+changed is recompiled, which is much faster than a complete build.
 
 Expert installation:
 
 You can also create custom versions of the sub packages to install. For instance you do not want all the HEAD
-versions but only the HEAD of the MtcaMappedDevice sub package, and all the other versions from the latest
-release (see example 1). Or you might want to skip QtHardMon in case the Qt4 development environment is not available (example 2).
+versions but only the HEAD of the deviceaccess sub package, and all the other versions from the latest
+release (see example 1). Or you might want to skip QtHardMon in case the Qt4 development environment 
+is not available (example 2).
 To perform this installation you have to create a new MTCA4U_VERSION_*.cmake file in the cmakemodules
-directory, usually by copying and adapting an existing one. Another use case is skipping the MotorDriverCard if you don't
-want to bother with installing pugixml.
+directory, usually by copying and adapting an existing one. Another use case is skipping the MotorDriverCard
+if you don't want to bother with installing pugixml.
 
 Example 1:
-In this example we use the 00.02.00 version of mtca4u and set the MtcaMappedDevice version to HEAD. We chose the 
-rather lengthy, but descriptive name/version string  "00.02.00_with_MtcaMappedDevice_HEAD".
+In this example we use the 01.00.00 version of mtca4u and set the MtcaMappedDevice version to HEAD. We chose the 
+rather lengthy, but descriptive name/version string  "01.00.00_with_deviceaccess_HEAD".
 Note that the version string has to start with the version number so the internal parser runs successfully.
 
-~/mtca4u_installer/cmakemodules> cp MTCA4U_VERSION_00.02.00.cmake MTCA4U_VERSION_00.02.00_with_MtcaMappedDevice_HEAD.cmake
+~/mtca4u_installer/cmakemodules> cp MTCA4U_VERSION_01.00.00.cmake MTCA4U_VERSION_01.00.00_with_deviceaccess_HEAD.cmake
 
 Now open the new file in a text editor and change
-set(MtcaMappedDevice_VERSION "00.02.00")
+set(mtca4u-deviceaccess_VERSION "00.04.00")
 to
-set(MtcaMappedDevice_VERSION "HEAD")
+set(mtca4u-deviceaccess_VERSION "HEAD")
 
-Afterwards exit the CMakeLists.txt and set the MTCA4U_VERSION to "00.02.00_with_MtcaMappedDevice_HEAD". Now
-just run install.sh. The installation will go to $/HOME/mtca4u/00.02.00_with_MtcaMappedDevice_HEAD (if you did not
+Afterwards exit the CMakeLists.txt and set the MTCA4U_VERSION to "01.00.00_with_deviceaccess_HEAD". Now
+just run install.sh. The installation will go to $/HOME/mtca4u/01.00.00_with_deviceaccess_HEAD (if you did not
 change the MTCA4U_BASE_DIR).
 
 Note: The released versions of mtca4u contain a combination of versions of the sub packages which are known to
-work together, as well as all the HEAD versions should work together. When creating your own combination of sub packages
-this might not be the case. Or it might break later, when the HEAD of a package is evolving.
+work together, as well as all the HEAD versions should work together. When creating your own combination
+of sub packages this might not be the case. Or it might break later, when the HEAD of a package is evolving.
 
 Example 2:
-You want to exclude QtHardMon from the installation. Copy the version file MTCA4U_VERSION_00.02.00.cmake file to
-00.02.00_without_QtHardMon.cmake . Open the latter and simply delete or uncomment the 'set(QtHardMon_VERSION 00.02.02)' line.
-Now adapt the CMakeLists.txt as described in example 1.
+You want to exclude QtHardMon from the installation. Copy the version file MTCA4U_VERSION_01.00.00.cmake file to
+01.00.00_without_QtHardMon.cmake . Open the latter and simply delete or uncomment
+the 'set(QtHardMon_VERSION 00.15.02)' line. Now adapt the CMakeLists.txt as described in example 1.
