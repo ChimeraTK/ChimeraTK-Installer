@@ -1,8 +1,6 @@
 # prepare the files to be installed by the debian package
 set(DEBIAN_PACKAGE_DIR ${PROJECT_BINARY_DIR}/debian_package/mtca4u_${${PROJECT_NAME}_VERSION})
 
-configure_file(${PROJECT_SOURCE_DIR}/cmakemodules/${PROJECT_NAME}.CONFIG.debian
-  ${DEBIAN_PACKAGE_DIR}/usr/share/mtca4u/${PROJECT_NAME}.CONFIG)
 file(COPY  ${CMAKE_SOURCE_DIR}/ReadMe.txt ${CMAKE_SOURCE_DIR}/ReadMe.DOOCS.txt ${CMAKE_SOURCE_DIR}/Releases.txt 
   DESTINATION ${DEBIAN_PACKAGE_DIR})
 
@@ -45,7 +43,7 @@ MACRO( createDebianControlVariables subPackage )
   endif( DEFINED ${subPackage}_VERSION )
 ENDMACRO( createDebianControlVariables )
 
-createDebianControlVariables( MtcaMappedDevice )
+createDebianControlVariables( mtca4u-deviceaccess )
 createDebianControlVariables( MotorDriverCard )
 createDebianControlVariables( MTCA4U )
 createDebianControlVariables( CommandLineTools )
@@ -56,7 +54,7 @@ file(COPY ${CMAKE_SOURCE_DIR}/cmakemodules/debian_package_templates/compat
      ${CMAKE_SOURCE_DIR}/cmakemodules/debian_package_templates/copyright
      ${CMAKE_SOURCE_DIR}/cmakemodules/debian_package_templates/mtca4u.install
      ${CMAKE_SOURCE_DIR}/cmakemodules/debian_package_templates/rules
-     ${CMAKE_SOURCE_DIR}/cmakemodules/debian_package_templates/dev-mtca4u.install
+     ${CMAKE_SOURCE_DIR}/cmakemodules/debian_package_templates/libmtca4u-dev.install
      DESTINATION debian_from_template)
 
 configure_file(${CMAKE_SOURCE_DIR}/cmakemodules/debian_package_templates/docs

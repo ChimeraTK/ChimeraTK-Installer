@@ -6,14 +6,15 @@ Build-Depends: debhelper (>= 7)
 Standards-Version: 3.8.3
 #Homepage: <insert the upstream URL, if relevant>
 
-Package: dev-mtca4u
+Package: libmtca4u-dev
 Section: devel
 Architecture: any
 #We require at least the current versions, but major and minor number must stay the same.
 #Like this patches are allowed, while the interface stays the same and the current patch
 #level is guaranteed.
 Depends: mtca4u (>= @MTCA4U_VERSION@),  mtca4u (<< @MTCA4U_NEXT_SOVERSION@),
- dev-mtcamappeddevice (>= @MtcaMappedDevice_VERSION@), dev-mtcamappeddevice (<< @MtcaMappedDevice_NEXT_SOVERSION@),
+ libmtca4u-deviceaccess-dev (>= @mtca4u-deviceaccess_VERSION@),
+ libmtca4u-deviceaccess-dev (<< @mtca4u-deviceaccess_NEXT_SOVERSION@),
  dev-mtca4u-motordrivercard (>= @MotorDriverCard_VERSION@), dev-mtca4u-motordrivercard (<< @MotorDriverCard_NEXT_SOVERSION@),
  python-mtca4upy-dev (>= @mtca4uPy_VERSION@), python-mtca4upy-dev (<< @mtca4uPy_NEXT_SOVERSION@)
 Description: The development files for mtca4u
@@ -24,7 +25,7 @@ Package: mtca4u
 Section: metapackages
 Architecture: any
 #For the binaries we only guarantee a minimum version
-Depends: mtcamappeddevice@MtcaMappedDevice_DEBIAN_SUFFIX@ (>= @MtcaMappedDevice_VERSION@),
+Depends: libmtca4u-deviceaccess@mtca4u-deviceaccess_DEBIAN_SUFFIX@ (>= @mtca4u-deviceaccess_VERSION@),
  qthardmon (>= @QtHardMon_VERSION@),
  mtca4u-motordrivercard@MotorDriverCard_DEBIAN_SUFFIX@ (>= @MotorDriverCard_VERSION@),
  mtca4u-motordrivercard-configcalculator (>= @MotorDriverCard_VERSION@),
@@ -32,5 +33,5 @@ Depends: mtcamappeddevice@MtcaMappedDevice_DEBIAN_SUFFIX@ (>= @MtcaMappedDevice_
  python-mtca4upy (>= @mtca4uPy_VERSION@)
 Description: DESY MicroTCA.4 User Tool Kit
  mtca4u is a meta package which installs all the packages which belong to 
- the DESY MicroTCA.4 User Tool Kit, which currently are the MtcaMappedDevice and MotorDriverCard
+ the DESY MicroTCA.4 User Tool Kit, which currently are the deviceaccess and MotorDriverCard
  libraries, QtHardMon, the command line tools and the python bindings.

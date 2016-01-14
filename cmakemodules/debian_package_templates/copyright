@@ -3,12 +3,8 @@ Upstream-Name: mtca4u
 Source: <https://svnsrv.desy.de/public/mtca4u>
 
 Files: *
-Copyright: 2013 Martin Killenberg <martin.killenberg@desy.de>
-License: GPL-3+
-
-Files: MtcaMappedDevice/*
-Copyright: 2013 Adam Piotrowski <adam.piotrowski@desy.de>
-           2013 Martin Killenberg <martin.killenberg@desy.de>
+Copyright: 2016 DESY Hamburg, MSK group
+	   2016 Martin Killenberg <martin.killenberg@desy.de>
 License: GPL-3+
 
 License: GPL-3+
