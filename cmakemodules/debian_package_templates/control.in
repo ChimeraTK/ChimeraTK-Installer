@@ -28,7 +28,7 @@ Architecture: any
 #For the binaries we only guarantee a minimum version
 Depends: libmtca4u-deviceaccess@mtca4u-deviceaccess_DEBIAN_SUFFIX@ (>= @mtca4u-deviceaccess_VERSION@),
  qthardmon (>= @QtHardMon_VERSION@),
- libmtca4u-motordrivercard@MotorDriverCard_DEBIAN_SUFFIX@ (>= @MotorDriverCard_VERSION@),
+ libmtca4u-motordrivercard@MotorDriverCard_DEBIAN_SUFFIX@,
  libmtca4u-motordrivercard-configcalculator (>= @MotorDriverCard_VERSION@),
  mtca4u-command-line-tools (>= @CommandLineTools_VERSION@ ),
  python-mtca4upy (>= @mtca4uPy_VERSION@)
