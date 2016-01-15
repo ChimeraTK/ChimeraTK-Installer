@@ -1,7 +1,7 @@
 # prepare the files to be installed by the debian package
 set(DEBIAN_PACKAGE_DIR ${PROJECT_BINARY_DIR}/debian_package/mtca4u_${${PROJECT_NAME}_VERSION})
 
-file(COPY  ${CMAKE_SOURCE_DIR}/ReadMe.txt ${CMAKE_SOURCE_DIR}/ReadMe.DOOCS.txt ${CMAKE_SOURCE_DIR}/Releases.txt 
+file(COPY  ${CMAKE_SOURCE_DIR}/Manual.txt ${CMAKE_SOURCE_DIR}/ReadMe.DOOCS.txt ${CMAKE_SOURCE_DIR}/Releases.txt 
   DESTINATION ${DEBIAN_PACKAGE_DIR})
 
 # now prepare the debian package control files
@@ -54,13 +54,12 @@ file(COPY ${CMAKE_SOURCE_DIR}/cmakemodules/debian_package_templates/compat
      ${CMAKE_SOURCE_DIR}/cmakemodules/debian_package_templates/copyright
      ${CMAKE_SOURCE_DIR}/cmakemodules/debian_package_templates/mtca4u.install
      ${CMAKE_SOURCE_DIR}/cmakemodules/debian_package_templates/rules
-     ${CMAKE_SOURCE_DIR}/cmakemodules/debian_package_templates/libmtca4u-dev.install
      DESTINATION debian_from_template)
 
 configure_file(${CMAKE_SOURCE_DIR}/cmakemodules/debian_package_templates/docs
   debian_from_template/mtca4u.docs)
 configure_file(${CMAKE_SOURCE_DIR}/cmakemodules/debian_package_templates/docs
-  debian_from_template/dev-mtca4u.docs)
+  debian_from_template/libmtca4u-dev.docs)
 
 file(COPY ${CMAKE_SOURCE_DIR}/cmakemodules/debian_package_templates/source/format
      DESTINATION debian_from_template/source)
@@ -81,7 +80,7 @@ add_custom_target(debian_package ${CMAKE_BINARY_DIR}/make_debian_package.sh
 
 #For convenience: Also create an install script for DESY
 set(PACKAGE_NAME "mtca4u")
-set(PACKAGE_DEV_NAME "dev-mtca4u")
+set(PACKAGE_DEV_NAME "libmtca4u-dev")
 set(PACKAGE_FILES_WILDCARDS "${PACKAGE_NAME}_*.deb ${PACKAGE_DEV_NAME}_*.deb ${PACKAGE_NAME}_*.changes")
 
 configure_file(${CMAKE_SOURCE_DIR}/cmakemodules/install_debian_package_at_DESY.sh.in

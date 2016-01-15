@@ -9,7 +9,8 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmakemodules")
 #set(MTCA4U_BASE_DIR "/usr/local/mtca4u")
 #
 #Proposed for user installation (no root privileges required)
-set(MTCA4U_BASE_DIR "$ENV{HOME}/mtca4u")
+#set(MTCA4U_BASE_DIR "$ENV{HOME}/mtca4u")
+set(MTCA4U_BASE_DIR "/tmp/mtca4u")
 #
 #Recommended for network file systems: add the architecture
 #set(MTCA4U_BASE_DIR "$ENV{HOME}/mtca4u/Ubuntu-12.04-x86_64")
