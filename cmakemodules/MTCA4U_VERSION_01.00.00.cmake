@@ -1,7 +1,7 @@
 #parts of mtca4u with their versions
 set(mtca4u-deviceaccess_VERSION "00.04.01")
 set(QtHardMon_VERSION "00.15.02")
-set(MotorDriverCard_VERSION "00.07.03")
+set(MotorDriverCard_VERSION "00.07.04")
 set(CommandLineTools_VERSION "00.08.00")
 set(mtca4uPy_VERSION "00.04.02")
 
