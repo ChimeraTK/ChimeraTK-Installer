@@ -15,7 +15,8 @@ Architecture: any
 Depends: mtca4u (>= @MTCA4U_VERSION@),  mtca4u (<< @MTCA4U_NEXT_SOVERSION@),
  libmtca4u-deviceaccess-dev (>= @mtca4u-deviceaccess_VERSION@),
  libmtca4u-deviceaccess-dev (<< @mtca4u-deviceaccess_NEXT_SOVERSION@),
- libmtca4u-motordrivercard-dev (>= @MotorDriverCard_VERSION@), libmtca4u-motordrivercard-dev (<< @MotorDriverCard_NEXT_SOVERSION@),
+ libmtca4u-motordrivercard-dev (>= @MotorDriverCard_MAJOR_VERSION@.@MotorDriverCard_MINOR_VERSION@),
+ libmtca4u-motordrivercard-dev (<< @MotorDriverCard_NEXT_SOVERSION@),
  python-mtca4upy-dev (>= @mtca4uPy_VERSION@), python-mtca4upy-dev (<< @mtca4uPy_NEXT_SOVERSION@)
 Conflicts: dev-mtca4u
 Replaces: dev-mtca4u
@@ -29,7 +30,7 @@ Architecture: any
 Depends: libmtca4u-deviceaccess@mtca4u-deviceaccess_DEBIAN_SUFFIX@ (>= @mtca4u-deviceaccess_VERSION@),
  qthardmon (>= @QtHardMon_VERSION@),
  libmtca4u-motordrivercard@MotorDriverCard_DEBIAN_SUFFIX@,
- mtca4u-motordrivercard-configcalculator (>= @MotorDriverCard_VERSION@),
+ mtca4u-motordrivercard-configcalculator (>= @MotorDriverCard_MAJOR_VERSION@.@MotorDriverCard_MINOR_VERSION@),
  mtca4u-command-line-tools (>= @CommandLineTools_VERSION@ ),
  python-mtca4upy (>= @mtca4uPy_VERSION@)
 Description: DESY MicroTCA.4 User Tool Kit
