@@ -21,10 +21,10 @@ Features:
  -- New script to provide compiler and linker flags for standard Makefile
  -- Support for the ReboT protocol
  - QtHardMon 00.015.02
- - MotorDriverCard 00.07.05
+ - MotorDriverCard 00.07.06
  -- New script to provide compiler and linker flags for standard Makefile
  - CommandLineTools 00.08.01
- - mtca4uPy 00.04.02
+ - mtca4uPy 00.04.03
 
 *******************************************************
 The 00.xx series are based on MtcaMappedDevice and not
