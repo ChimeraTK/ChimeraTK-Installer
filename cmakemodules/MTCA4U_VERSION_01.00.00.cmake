@@ -3,7 +3,7 @@ set(mtca4u-deviceaccess_VERSION "00.04.01")
 set(QtHardMon_VERSION "00.15.02")
 set(MotorDriverCard_VERSION "00.07.05")
 set(CommandLineTools_VERSION "00.08.01")
-set(mtca4uPy_VERSION "00.04.02")
+set(mtca4uPy_VERSION "00.04.03")
 
 #the dependencies with their minimal versions
 set(pugixml_MIN_VERSION "1.4")
