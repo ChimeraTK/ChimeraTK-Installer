@@ -51,7 +51,7 @@ MACRO(installSubPackage subPackage addidionalCMakeArgs dependecies svnSubDirecto
       INSTALL_DIR ${${subPackage}_DIR}
       )
 
-     endif( ${subPackage}_VERSION )  
+  endif( ${subPackage}_VERSION )  
 ENDMACRO(installSubPackage)
 
 MACRO(checkOrInstallPugixml)
@@ -92,6 +92,7 @@ MACRO(mtca4uInstallation)
 	"external-mtca4u-deviceaccess;${pugixml_external_project_name}" "")
   installSubPackage("CommandLineTools" "-Dmtca4u-deviceaccess_DIR=${mtca4u-deviceaccess_DIR}" "external-mtca4u-deviceaccess" "")
   installSubPackage("mtca4uPy" "-Dmtca4u-deviceaccess_DIR=${mtca4u-deviceaccess_DIR}" "external-mtca4u-deviceaccess" "PythonBindings/deviceaccess")
+  installSubPackage("mtca4uVirtualLab" "-Dmtca4u-deviceaccess_DIR=${mtca4u-deviceaccess_DIR}" "external-mtca4u-deviceaccess" "VirtualLab")
 
   message("This is mtca4uInstallation installing to ${MTCA4U_BASE_DIR}/${MTCA4U_VERSION}.")
 
