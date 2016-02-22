@@ -26,7 +26,12 @@ MACRO(installSubPackage subPackage addidionalCMakeArgs dependecies svnSubDirecto
   # to control which subpackages are installed from the version file.
   if( ${subPackage}_VERSION )
 
-    set(${subPackage}_DIR "${MTCA4U_DIR}/${subPackage}/${${subPackage}_VERSION}")
+    #FIXME: change this when we go for a system-like installation
+    set(${subPackage}_INSTALL_DIR "${MTCA4U_DIR}/${subPackage}/${${subPackage}_VERSION}")
+    set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${${subPackage}_INSTALL_DIR}/share/cmake-${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION}/Modules")
+    # replace semicolons with a "double hat" to pass a semicolon separated list as one
+    # parameter of a list which itself is semicolon separated
+    string(REGEX REPLACE ";" "^^" DOUBLE_HAT_SEPARATED_MODULE_PATH "${CMAKE_MODULE_PATH}")
 
     if ("${svnSubDirectory}" STREQUAL "")
       set( SVN_SUB_DIR "${subPackage}" )
@@ -47,8 +52,10 @@ MACRO(installSubPackage subPackage addidionalCMakeArgs dependecies svnSubDirecto
     ExternalProject_Add(external-${subPackage} 
       DEPENDS ${dependecies}
       SVN_REPOSITORY ${${subPackage}_SVN_DIR}
-      CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${${subPackage}_DIR}" "${addidionalCMakeArgs}"
-      INSTALL_DIR ${${subPackage}_DIR}
+      CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${${subPackage}_INSTALL_DIR}" "${addidionalCMakeArgs}" 
+      "-DCMAKE_MODULE_PATH=${DOUBLE_HAT_SEPARATED_MODULE_PATH}"
+      LIST_SEPARATOR "^^"
+      INSTALL_DIR ${${subPackage}_INSTALL_DIR}
       )
 
   endif( ${subPackage}_VERSION )  
@@ -86,13 +93,12 @@ MACRO(mtca4uInstallation)
 
   installSubPackage("mtca4u-deviceaccess" "" "" "deviceaccess")
 
-  installSubPackage("QtHardMon" "-Dmtca4u-deviceaccess_DIR=${mtca4u-deviceaccess_DIR}" "external-mtca4u-deviceaccess" "")
-  installSubPackage("MotorDriverCard"
-	"-Dmtca4u-deviceaccess_DIR=${mtca4u-deviceaccess_DIR};-Dpugixml_DIR=${pugixml_DIR}"
+  installSubPackage("QtHardMon" "" "external-mtca4u-deviceaccess" "")
+  installSubPackage("MotorDriverCard" "-Dpugixml_DIR=${pugixml_DIR}"
 	"external-mtca4u-deviceaccess;${pugixml_external_project_name}" "")
-  installSubPackage("CommandLineTools" "-Dmtca4u-deviceaccess_DIR=${mtca4u-deviceaccess_DIR}" "external-mtca4u-deviceaccess" "")
-  installSubPackage("mtca4uPy" "-Dmtca4u-deviceaccess_DIR=${mtca4u-deviceaccess_DIR}" "external-mtca4u-deviceaccess" "PythonBindings/deviceaccess")
-  installSubPackage("mtca4uVirtualLab" "-Dmtca4u-deviceaccess_DIR=${mtca4u-deviceaccess_DIR}" "external-mtca4u-deviceaccess" "VirtualLab")
+  installSubPackage("CommandLineTools" "" "external-mtca4u-deviceaccess" "")
+  installSubPackage("mtca4uPy" "" "external-mtca4u-deviceaccess" "PythonBindings/deviceaccess")
+  installSubPackage("mtca4uVirtualLab" "" "external-mtca4u-deviceaccess" "VirtualLab")
 
   message("This is mtca4uInstallation installing to ${MTCA4U_BASE_DIR}/${MTCA4U_VERSION}.")
 
