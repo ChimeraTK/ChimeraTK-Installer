@@ -28,10 +28,10 @@ MACRO(installSubPackage subPackage addidionalCMakeArgs dependecies svnSubDirecto
 
     #FIXME: change this when we go for a system-like installation
     set(${subPackage}_INSTALL_DIR "${MTCA4U_DIR}/${subPackage}/${${subPackage}_VERSION}")
-    set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${${subPackage}_INSTALL_DIR}/share/cmake-${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION}/Modules")
+    set(EXTERN_CMAKE_MODULE_PATH ${EXTERN_CMAKE_MODULE_PATH} "${${subPackage}_INSTALL_DIR}/share/cmake-${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION}/Modules")
     # replace semicolons with a "double hat" to pass a semicolon separated list as one
     # parameter of a list which itself is semicolon separated
-    string(REGEX REPLACE ";" "^^" DOUBLE_HAT_SEPARATED_MODULE_PATH "${CMAKE_MODULE_PATH}")
+    string(REGEX REPLACE ";" "^^" DOUBLE_HAT_SEPARATED_MODULE_PATH "${EXTERN_CMAKE_MODULE_PATH}")
 
     if ("${svnSubDirectory}" STREQUAL "")
       set( SVN_SUB_DIR "${subPackage}" )
@@ -92,7 +92,6 @@ MACRO(mtca4uInstallation)
   checkOrInstallPugixml()
 
   installSubPackage("mtca4u-deviceaccess" "" "" "deviceaccess")
-
   installSubPackage("QtHardMon" "" "external-mtca4u-deviceaccess" "")
   installSubPackage("MotorDriverCard" "-Dpugixml_DIR=${pugixml_DIR}"
 	"external-mtca4u-deviceaccess;${pugixml_external_project_name}" "")

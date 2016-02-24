@@ -25,8 +25,8 @@ set(LATEST_VERSION "01.01.00")
 #See Releases.txt for more information and a list of available revisions.
 #Note: You can only install versions newer than 01.00.00, which is the first version that comes with the
 # deviceaccess library. For older versions please check out tag 00.24.03, which can install all 00.xx versions.
-set(MTCA4U_VERSION ${LATEST_VERSION})
-#set(MTCA4U_VERSION "HEAD")
+#set(MTCA4U_VERSION ${LATEST_VERSION})
+set(MTCA4U_VERSION "HEAD")
 
 #In case pugixml is not found set either the path where it can be found,
 #or chose it to be installed together with MTCA4U
