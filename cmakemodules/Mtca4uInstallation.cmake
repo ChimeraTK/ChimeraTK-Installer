@@ -26,8 +26,7 @@ MACRO(installSubPackage subPackage addidionalCMakeArgs dependecies svnSubDirecto
   # to control which subpackages are installed from the version file.
   if( ${subPackage}_VERSION )
 
-    #FIXME: change this when we go for a system-like installation
-    set(${subPackage}_INSTALL_DIR "${MTCA4U_DIR}/${subPackage}/${${subPackage}_VERSION}")
+    set(${subPackage}_INSTALL_DIR "${MTCA4U_DIR}")
     set(EXTERN_CMAKE_MODULE_PATH ${EXTERN_CMAKE_MODULE_PATH} "${${subPackage}_INSTALL_DIR}/share/cmake-${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION}/Modules")
     # replace semicolons with a "double hat" to pass a semicolon separated list as one
     # parameter of a list which itself is semicolon separated
