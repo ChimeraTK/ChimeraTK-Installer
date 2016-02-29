@@ -20,7 +20,7 @@ ENDIF("${isSystemDir}" STREQUAL "-1")
 set(SVN_BASE_DIR "https://svnsrv.desy.de/public/mtca4u")
 
 #macro to set and intstall the sub package as external project from the svn repository
-MACRO(installSubPackage subPackage addidionalCMakeArgs dependecies svnSubDirectory)
+MACRO(installSubPackage subPackage additionalCMakeArgs dependecies svnSubDirectory)
 
   # If a subpackage is not defined, it is not added. This allows
   # to control which subpackages are installed from the version file.
@@ -51,7 +51,7 @@ MACRO(installSubPackage subPackage addidionalCMakeArgs dependecies svnSubDirecto
     ExternalProject_Add(external-${subPackage} 
       DEPENDS ${dependecies}
       SVN_REPOSITORY ${${subPackage}_SVN_DIR}
-      CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${${subPackage}_INSTALL_DIR}" "${addidionalCMakeArgs}" 
+      CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${${subPackage}_INSTALL_DIR}" "${additionalCMakeArgs}" 
       "-DCMAKE_MODULE_PATH=${DOUBLE_HAT_SEPARATED_MODULE_PATH}"
       LIST_SEPARATOR "^^"
       INSTALL_DIR ${${subPackage}_INSTALL_DIR}
@@ -71,7 +71,7 @@ MACRO(checkOrInstallPugixml)
     set(pugixml_DIR "${MTCA4U_DIR}/pugixml/${pugixml_INSTALL_VERSION}")
     ExternalProject_Add(${pugixml_external_project_name}
       DOWNLOAD_COMMAND rm -rf ${pugixml_external_project_name} && bzr export ${pugixml_external_project_name} -r tag:${pugixml_INSTALL_VERSION} http://www.desy.de/~killenb/pugixml-desy 
-      CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${pugixml_DIR}" "${addidionalCMakeArgs}"
+      CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${pugixml_DIR}" "${additionalCMakeArgs}"
       INSTALL_DIR ${pugixml_DIR}
       )
     set( pugixml_FOUND true )
