@@ -48,11 +48,11 @@ createDebianControlVariables( MotorDriverCard )
 createDebianControlVariables( MTCA4U )
 createDebianControlVariables( CommandLineTools )
 createDebianControlVariables( mtca4uPy )
+createDebianControlVariables( mtca4uVirtualLab )
 
 #Nothing to change, just copy
 file(COPY ${CMAKE_SOURCE_DIR}/cmakemodules/debian_package_templates/compat
      ${CMAKE_SOURCE_DIR}/cmakemodules/debian_package_templates/copyright
-     ${CMAKE_SOURCE_DIR}/cmakemodules/debian_package_templates/mtca4u.install
      ${CMAKE_SOURCE_DIR}/cmakemodules/debian_package_templates/rules
      DESTINATION debian_from_template)
 

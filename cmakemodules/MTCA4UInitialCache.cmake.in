@@ -5,6 +5,7 @@
 set(CMAKE_PREFIX_PATH  
        @mtca4u-deviceaccess_DIR@
        @MotorDriverCard_DIR@
+       @mtca4uVirtualLab_DIR@
        CACHE PATH "CMAKE_PREFIX_PATH" FORCE)
 
 message("(CMAKE_PREFIX_PATH is ${CMAKE_PREFIX_PATH}")

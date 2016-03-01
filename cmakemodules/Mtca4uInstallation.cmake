@@ -27,7 +27,8 @@ MACRO(installSubPackage subPackage additionalCMakeArgs dependecies svnSubDirecto
   if( ${subPackage}_VERSION )
 
     set(${subPackage}_INSTALL_DIR "${MTCA4U_DIR}")
-    set(EXTERN_CMAKE_MODULE_PATH ${EXTERN_CMAKE_MODULE_PATH} "${${subPackage}_INSTALL_DIR}/share/cmake-${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION}/Modules")
+    set(${subPackage}_DIR "${${subPackage}_INSTALL_DIR}/share/cmake-${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION}/Modules")
+    set(EXTERN_CMAKE_MODULE_PATH ${EXTERN_CMAKE_MODULE_PATH} ${${subPackage}_DIR})
     # replace semicolons with a "double hat" to pass a semicolon separated list as one
     # parameter of a list which itself is semicolon separated
     string(REGEX REPLACE ";" "^^" DOUBLE_HAT_SEPARATED_MODULE_PATH "${EXTERN_CMAKE_MODULE_PATH}")
@@ -98,10 +99,10 @@ MACRO(mtca4uInstallation)
   installSubPackage("mtca4uPy" "" "external-mtca4u-deviceaccess" "PythonBindings/deviceaccess")
   installSubPackage("mtca4uVirtualLab" "" "external-mtca4u-deviceaccess" "VirtualLab")
 
-  message("This is mtca4uInstallation installing to ${MTCA4U_BASE_DIR}/${MTCA4U_VERSION}.")
+  message("This is mtca4uInstallation installing to ${MTCA4U_DIR}.")
 
   configure_file(${PROJECT_SOURCE_DIR}/cmakemodules/${PROJECT_NAME}InitialCache.cmake.in
-    "${MTCA4U_DIR}/${PROJECT_NAME}InitialCache.cmake" @ONLY)
+    "${MTCA4U_DIR}/share/mtca4u/${PROJECT_NAME}InitialCache.cmake" @ONLY)
 
 ENDMACRO(mtca4uInstallation)
 

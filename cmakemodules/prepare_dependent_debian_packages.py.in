@@ -36,3 +36,5 @@ prepare_dependent_debian_package( "QtHardMon", "QtHardMon",
                                "@QtHardMon_VERSION@" )
 prepare_dependent_debian_package( "CommandLineTools", "CommandLineTools",
                                "@CommandLineTools_VERSION@" )
+prepare_dependent_debian_package( "mtca4uVirtualLab", "VirtualLab",
+                               "@mtca4uVirtualLab_VERSION@" )
