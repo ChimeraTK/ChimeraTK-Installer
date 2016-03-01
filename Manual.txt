@@ -4,13 +4,14 @@ mtca4u_installer is a meta package which will install the mtca4u sub packages. C
 - MotorDriverCard
 - CommandLineTools
 - mtca4uPy (Python bindings for MtcaMappedDevice)
+- VirtualLab
 The installation is done from source code. You need the C++ development tools (compiler etc.) installed on your
 machine.
 
 Requirements:
 You need cmake (at least version 2.8.3), which is used as the build system.
 In addition you need the Subversion version control client installed (svn).
-The libraries use C++ Boost, so you need the development libraries.
+The libraries use C++ Boost and libxml++, so you need the according development libraries.
 For the unit tests you need the Boost testing framework in addition. They are optional and not required to build the packages.
 To build the QtHardMon, you also need the Qt4 development libraries installed. For the plotting functionality
 QWT 6 is required in addition.
@@ -28,6 +29,7 @@ package name and install mechanism can be different.
 - Boost Test Library (libboost-test-dev)
 - Boost Filesystem (libboost-filesystem-dev) // MotorDriverCard only, optional
 - Boost Thread (libboost-thread-dev) // MotorDriverCard only
+- libxml++ (libxml++2.6-dev)
 - Qt4 development libraries (libqt4-dev) // QtHardMon only
 - QWT development libraries (libqwt-dev) // QtHardMon plotting only, optional
 - pugixml (libpugixml-dev)(*) // MotorDriverCard only (**)
@@ -67,13 +69,12 @@ architectures it is recommended to add the architecture to the MTCA4U_BASE_DIR, 
 set(MTCA4U_BASE_DIR "$ENV{HOME}/mtca4u/Ubuntu-12.04-x86_64")
 
 Executing the HardMon:
-Just execute $HOME/mtca4u/[MTCA4U_VERSION]/QtHardMon/[QT_HARD_MON_VERSION]/bin/QtHardMon. The full path with the 
-correct versions for MTCA4U_VERSION and QT_HARD_MON_VERSION is shown by the install command in the line:
--- Set runtime path of "/full/path/to/QtHardMon" to "..."
-
-You might want to add $HOME/mtca4u/[MTCA4U_VERSION]/QtHardMon/[QT_HARD_MON_VERSION]/bin to your 
-search path, so you can just call 'QtHardMon'. For Bash you can add the following line to your $HOME/.bashrc :
-export PATH=${PATH}:${HOME}/mtca4u/[MTCA4U_VERSION]/QtHardMon/[QT_HARD_MON_VERSION]/bin
+Just execute $HOME/mtca4u/[MTCA4U_VERSION]/bin/QtHardMon.
+You might want to add $HOME/mtca4u/[MTCA4U_VERSION]/bin to your 
+search path, so you can just call 'QtHardMon'. You also need this for the library configuration scripts
+if you want to develop using standard Makefile.
+For Bash you can add the following line to your $HOME/.bashrc :
+export PATH=${PATH}:${HOME}/mtca4u/[MTCA4U_VERSION]/bin
 
 Advanced installation:
 
@@ -85,10 +86,9 @@ is only needed by developers or if you want a feature which is not in a release 
 systems (e.g. servers used at the accelerator) you normally want a tagged version.
 For information about the available releases please refer to Releases.txt.
 
-The installation will always happen into a sub directory with the mtca4u version. Sub packages will be installed
-into a further sub directory with version number.
-Example: You specify /home/dummyuser/mtca4u as MTCA4U_BASE_DIR and want to install version 01.00.00.
-This comes with QtHardMon 00.15.02, which will be installed to  /home/dummyuser/mtca4u/01.00.00/QtHardMon/00.15.02
+The installation will happen into a sub directory with the mtca4u version. Inside you have a system-like 
+installation with bin, lib, include and share. The documentation is installed in share/doc/packagename-packageversion,
+the CMake configuration files for the libraries are in share/cmake-[major].[minor]/Modules.
 
 Now run ./install.sh
 
@@ -135,5 +135,5 @@ of sub packages this might not be the case. Or it might break later, when the HE
 
 Example 2:
 You want to exclude QtHardMon from the installation. Copy the version file MTCA4U_VERSION_01.00.00.cmake file to
-01.00.00_without_QtHardMon.cmake . Open the latter and simply delete or uncomment
+01.00.00_without_QtHardMon.cmake . Open the latter and simply delete or comment
 the 'set(QtHardMon_VERSION 00.15.02)' line. Now adapt the CMakeLists.txt as described in example 1.
