@@ -20,7 +20,7 @@ Features:
  -- Introduced checkbox to sort/'unsort' register list.
  - MotorDriverCard 00.08.00
  -- Extended the Qt config calculator with an expert panel which allows to edit all parameters of the XML file
- - CommandLineTool 00.09.01
+ - CommandLineTool 00.09.02
  - mtca4uPy 00.05.00
 Bug Fixes:
  - deviceaccess 00.07.00
