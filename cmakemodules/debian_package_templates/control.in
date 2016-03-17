@@ -13,7 +13,7 @@ Architecture: any
 #Like this patches are allowed, while the interface stays the same and the current patch
 #level is guaranteed.
 Depends: mtca4u (>= @MTCA4U_VERSION@),  mtca4u (<< @MTCA4U_NEXT_SOVERSION@),
- libmtca4u-deviceaccess-dev (>= @mtca4u-deviceaccess_VERSION@),
+ libmtca4u-deviceaccess-dev (>= @mtca4u-deviceaccess_MAJOR_VERSION@.@mtca4u-deviceaccess_MINOR_VERSION@),
  libmtca4u-deviceaccess-dev (<< @mtca4u-deviceaccess_NEXT_SOVERSION@),
  libmtca4u-motordrivercard-dev (>= @MotorDriverCard_MAJOR_VERSION@.@MotorDriverCard_MINOR_VERSION@),
  libmtca4u-motordrivercard-dev (<< @MotorDriverCard_NEXT_SOVERSION@),
