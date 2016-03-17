@@ -29,7 +29,7 @@ Package: mtca4u
 Section: metapackages
 Architecture: any
 #For the binaries we only guarantee a minimum version
-Depends: libmtca4u-deviceaccess@mtca4u-deviceaccess_DEBIAN_SUFFIX@ (>= @mtca4u-deviceaccess_VERSION@),
+Depends: libmtca4u-deviceaccess@mtca4u-deviceaccess_DEBIAN_SUFFIX@,
  qthardmon (>= @QtHardMon_VERSION@),
  libmtca4u-motordrivercard@MotorDriverCard_DEBIAN_SUFFIX@,
  mtca4u-motordrivercard-configcalculator (>= @MotorDriverCard_MAJOR_VERSION@.@MotorDriverCard_MINOR_VERSION@),
