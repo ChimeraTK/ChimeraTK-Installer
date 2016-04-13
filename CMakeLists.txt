@@ -19,7 +19,7 @@ set(MTCA4U_BASE_DIR "$ENV{HOME}/mtca4u")
 
 #This variable is updated for a new release. It is stored in a separate line so the 'set(MTCA4U_VERSION ..)'
 #line does not cause a conflict on svn update if it is changed to HEAD by the developer.
-set(LATEST_VERSION "01.03.00")
+set(LATEST_VERSION "01.04.00")
 
 #Set the version to be installed (version number or HEAD).
 #See Releases.txt for more information and a list of available revisions.
@@ -28,6 +28,8 @@ set(LATEST_VERSION "01.03.00")
 set(MTCA4U_VERSION ${LATEST_VERSION})
 #set(MTCA4U_VERSION "HEAD")
 
+#Installing pugixml as a separate library is not needed with recent versions,
+#but it is kept for backward compatibility for tags <= 01.03
 #In case pugixml is not found set either the path where it can be found,
 #or chose it to be installed together with MTCA4U
 #set(pugixml_DIR "/wherever/pugixml/is/installed")

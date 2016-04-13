@@ -6,5 +6,3 @@ set(CommandLineTools_VERSION "00.10.00")
 set(mtca4uPy_VERSION "00.06.00")
 set(mtca4uVirtualLab_VERSION "00.02.03")
 
-#the dependencies with their minimal versions
-set(pugixml_MIN_VERSION "1.4")
