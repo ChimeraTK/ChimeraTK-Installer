@@ -11,6 +11,7 @@ The tagged releases consist of a set of sub package releases which are known to 
 Bug Fix:
 - The backward compatibility implementation of RegisterAccessor in deviceaccess 00.09 was very 
   inefficient. This has been fixed and brings performance back.
+- mtca4uPy 00.07.00
 
 "01.04.01"
 Bug Fixes:
