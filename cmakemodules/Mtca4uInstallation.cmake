@@ -40,7 +40,7 @@ MACRO(installSubPackage subPackage additionalCMakeArgs dependecies gitRepo)
     endif ("${gitRepo}" STREQUAL "")
 
     if( ${subPackage}_VERSION STREQUAL "HEAD" )
-      #use the svn trunk in case of the head version
+      #use the git master in case of the head version
       set(${subPackage}_TAG "master")
     else( ${subPackage}_VERSION STREQUAL "HEAD" )
       #use the tagged version
