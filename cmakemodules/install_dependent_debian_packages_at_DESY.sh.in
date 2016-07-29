@@ -1,0 +1,11 @@
+#!/bin/bash -e
+
+for packageDir in \
+    mtca4uPy_@mtca4uPy_VERSION@ \
+    MotorDriverCard_@MotorDriverCard_VERSION@ \
+    QtHardMon_@QtHardMon_VERSION@ \
+    CommandLineTools_@CommandLineTools_VERSION@ \
+    mtca4uVirtualLab_@mtca4uVirtualLab_VERSION@
+do \
+    (cd ${packageDir}/build && ./install_debian_package_at_DESY.sh)
+done

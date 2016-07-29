@@ -83,13 +83,21 @@ set(PACKAGE_NAME "mtca4u")
 set(PACKAGE_DEV_NAME "libmtca4u-dev")
 set(PACKAGE_FILES_WILDCARDS "${PACKAGE_NAME}_*.deb ${PACKAGE_DEV_NAME}_*.deb ${PACKAGE_NAME}_*.changes")
 
+#We keep the generic name install_debian_package_at_DESY.sh.in in the cmake folder because 
+#it might be put to the project template. It is the install script for this package.
+#However, as there are more debian packaged to be installed before we change the name in
+#the target directory to make it more clear what this script does.
 configure_file(${CMAKE_SOURCE_DIR}/cmakemodules/install_debian_package_at_DESY.sh.in
-               install_debian_package_at_DESY.sh @ONLY)
+               install_ChimeraTK_debian_package_at_DESY.sh @ONLY)
 
 configure_file(${CMAKE_SOURCE_DIR}/cmakemodules/prepare_dependent_debian_packages.py.in
                prepare_dependent_debian_packages.py @ONLY)
 configure_file(${CMAKE_SOURCE_DIR}/cmakemodules/prepare_DeviceAccess_debian.py.in
                prepare_DeviceAccess_debian.py @ONLY)
 file(COPY ${CMAKE_SOURCE_DIR}/cmakemodules/prepare_debian_subpackage.py DESTINATION .)
+configure_file(${CMAKE_SOURCE_DIR}/cmakemodules/install_DeviceAccess_debian_package_at_DESY.sh.in
+               install_DeviceAccess_debian_package_at_DESY.sh @ONLY)
+configure_file(${CMAKE_SOURCE_DIR}/cmakemodules/install_dependent_debian_packages_at_DESY.sh.in
+               install_dependent_debian_packages_at_DESY.sh @ONLY)
 
 configure_file(${CMAKE_SOURCE_DIR}/cmakemodules/buildversions.sh.in buildversions.sh @ONLY )

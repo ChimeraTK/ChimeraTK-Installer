@@ -1,0 +1,4 @@
+#!/bin/bash -e
+
+cd mtca4u-deviceaccess_@mtca4u-deviceaccess_VERSION@/build
+./install_debian_package_at_DESY.sh
