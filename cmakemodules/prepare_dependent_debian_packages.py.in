@@ -3,43 +3,10 @@
 # This script is preparing/building the debian packages for those
 # sub-packages which depend on deviceaccess, but not deviceaccess itself
 
-from subprocess import call
-import os
-import sys
+from prepare_debian_subpackage import prepare_debian_subpackage
 
-gitBaseUrl="https://github.com/ChimeraTK"
-
-def prepare_dependent_debian_package( package_name, git_repo_name, version ):
-  package_directory=package_name+"_"+version
-  gitUrl=gitBaseUrl + "/" + git_repo_name
-  if call(["git","clone",gitUrl,package_directory]) :
-    print( package_name+": could not clone from " + gitUrl )
-    sys.exit(1)
-  orginal_working_directory=os.getcwd()
-  os.chdir(package_directory)
-  if call(["git","checkout",version]) :
-    print( package_name+": could not check out tag " + version + " of " + git_repo_name )
-    os.chdir(orginal_working_directory)
-    sys.exit(1)
-  os.mkdir("build")
-  os.chdir("build")
-  if call(["cmake",".."]):
-    print( package_name+": error running cmake" )
-    os.chdir(orginal_working_directory)
-    sys.exit(1)
-  if call(["make","debian_package"]):
-    print( package_name+": error creating debian package" )
-    os.chdir(orginal_working_directory)
-    sys.exit(1)
-  os.chdir(orginal_working_directory)
-
-prepare_dependent_debian_package( "mtca4uPy", "DeviceAccess-PythonBindings",
-                                  "@mtca4uPy_VERSION@" )
-prepare_dependent_debian_package( "MotorDriverCard", "MotorDriverCard",
-                                  "@MotorDriverCard_VERSION@" )
-prepare_dependent_debian_package( "QtHardMon", "QtHardMon",
-                                  "@QtHardMon_VERSION@")
-prepare_dependent_debian_package( "CommandLineTools", "CommandLineTools",
-                                  "@CommandLineTools_VERSION@" )
-prepare_dependent_debian_package( "mtca4uVirtualLab", "VirtualLab",
-                                  "@mtca4uVirtualLab_VERSION@" )
+prepare_debian_subpackage( "mtca4uPy", "DeviceAccess-PythonBindings", "@mtca4uPy_VERSION@")
+prepare_debian_subpackage( "MotorDriverCard", "MotorDriverCard", "@MotorDriverCard_VERSION@")
+prepare_debian_subpackage( "QtHardMon", "QtHardMon", "@QtHardMon_VERSION@")
+prepare_debian_subpackage( "CommandLineTools", "CommandLineTools", "@CommandLineTools_VERSION@")
+prepare_debian_subpackage( "mtca4uVirtualLab", "VirtualLab", "@mtca4uVirtualLab_VERSION@")

@@ -1,0 +1,9 @@
+#!/usr/bin/python
+
+# This script is preparing/building the debian packages for those
+# sub-packages which depend on deviceaccess, but not deviceaccess itself
+
+from prepare_debian_subpackage import prepare_debian_subpackage
+
+prepare_debian_subpackage( "mtca4u-deviceaccess", "DeviceAccess",
+                                  "@mtca4u-deviceaccess_VERSION@" )
