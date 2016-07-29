@@ -1,6 +1,6 @@
 Format: http://dep.debian.net/deps/dep5
 Upstream-Name: mtca4u
-Source: <https://svnsrv.desy.de/public/mtca4u>
+Source: <https://github.com/ChimeraTK>
 
 Files: *
 Copyright: 2016 DESY Hamburg, MSK group
