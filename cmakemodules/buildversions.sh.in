@@ -1,0 +1,30 @@
+#/bin/bash
+
+# When this script is created by cmake, all exports are commented out,
+# and all versions are set to 1.
+# Carefully revisit the version numbers for each package before commenting
+# them in.
+#
+# When you are done source this file and you can start making debian packages.
+
+CODENAME=`lsb_release -c | sed "{s/Codename:\s*//}"`
+## ChimeraTK version is @MTCA4U_VERSION@
+#export ChimeraTK_BUILDVERSION=${CODENAME}1
+
+## DeviceAccess version is @mtca4u-deviceaccess_VERSION@
+#export mtca4u_deviceaccess_BUILDVERSION=${CODENAME}1
+
+## MotorDriverCard version is @MotorDriverCard_VERSION@
+#export MotorDriverCard_BUILDVERSION=${CODENAME}1
+
+## mtca4uPy version is @mtca4uPy_VERSION@
+#export mtca4uPy_BUILDVERSION=${CODENAME}1
+
+## mtca4uVirtualLab version is @mtca4uVirtualLab_VERSION@
+#export mtca4uVirtualLab_BUILDVERSION=${CODENAME}1
+
+## QtHardMon version is @QtHardMon_VERSION@
+#export QtHardMon_BUILDVERSION=${CODENAME}1
+
+## CommandLineTools version is @CommandLineTools_VERSION@
+#export CommandLineTools_BUILDVERSION=${CODENAME}1

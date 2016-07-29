@@ -88,3 +88,5 @@ configure_file(${CMAKE_SOURCE_DIR}/cmakemodules/install_debian_package_at_DESY.s
 
 configure_file(${CMAKE_SOURCE_DIR}/cmakemodules/prepare_dependent_debian_packages.py.in
                prepare_dependent_debian_packages.py @ONLY)
+
+configure_file(${CMAKE_SOURCE_DIR}/cmakemodules/buildversions.sh.in buildversions.sh @ONLY )
