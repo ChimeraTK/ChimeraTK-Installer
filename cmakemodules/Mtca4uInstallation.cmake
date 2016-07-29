@@ -17,10 +17,10 @@ IF("${isSystemDir}" STREQUAL "-1")
 ENDIF("${isSystemDir}" STREQUAL "-1")
 
 #The base URL of the repository. Sub-packages are located in sub-directiries
-set(SVN_BASE_DIR "https://svnsrv.desy.de/public/mtca4u")
+set(GIT_BASE_URL "https://github.com/ChimeraTK")
 
-#macro to set and intstall the sub package as external project from the svn repository
-MACRO(installSubPackage subPackage additionalCMakeArgs dependecies svnSubDirectory)
+#macro to set and intstall the sub package as external project from the git repository
+MACRO(installSubPackage subPackage additionalCMakeArgs dependecies gitRepo)
 
   # If a subpackage is not defined, it is not added. This allows
   # to control which subpackages are installed from the version file.
@@ -33,25 +33,26 @@ MACRO(installSubPackage subPackage additionalCMakeArgs dependecies svnSubDirecto
     # parameter of a list which itself is semicolon separated
     string(REGEX REPLACE ";" "^^" DOUBLE_HAT_SEPARATED_MODULE_PATH "${EXTERN_CMAKE_MODULE_PATH}")
 
-    if ("${svnSubDirectory}" STREQUAL "")
-      set( SVN_SUB_DIR "${subPackage}" )
-    else ("${svnSubDirectory}" STREQUAL "")
-      set( SVN_SUB_DIR "${svnSubDirectory}" )
-    endif ("${svnSubDirectory}" STREQUAL "")
+    if ("${gitRepo}" STREQUAL "")
+      set( ${subPackage}_GIT_REPO "${subPackage}" )
+    else ("${gitRepo}" STREQUAL "")
+      set( ${subPackage}_GIT_REPO "${gitRepo}" )
+    endif ("${gitRepo}" STREQUAL "")
 
     if( ${subPackage}_VERSION STREQUAL "HEAD" )
       #use the svn trunk in case of the head version
-      set(${subPackage}_SVN_DIR "${SVN_BASE_DIR}/${SVN_SUB_DIR}/trunk")
+      set(${subPackage}_TAG "master")
     else( ${subPackage}_VERSION STREQUAL "HEAD" )
       #use the tagged version
-      set(${subPackage}_SVN_DIR "${SVN_BASE_DIR}/${SVN_SUB_DIR}/tags/${${subPackage}_VERSION}")
+      set(${subPackage}_TAG "${${subPackage}_VERSION}")
     endif( ${subPackage}_VERSION STREQUAL "HEAD" )
 
     message("${subPackage}_VERSION is ${${subPackage}_VERSION}")
 
     ExternalProject_Add(external-${subPackage} 
       DEPENDS ${dependecies}
-      SVN_REPOSITORY ${${subPackage}_SVN_DIR}
+      GIT_REPOSITORY ${GIT_BASE_URL}/${${subPackage}_GIT_REPO}
+      GIT_TAG ${${subPackage}_TAG}
       CMAKE_ARGS "-DCMAKE_INSTALL_PREFIX=${${subPackage}_INSTALL_DIR}" "${additionalCMakeArgs}" 
       "-DCMAKE_MODULE_PATH=${DOUBLE_HAT_SEPARATED_MODULE_PATH}"
       LIST_SEPARATOR "^^"
@@ -97,12 +98,12 @@ MACRO(mtca4uInstallation)
   find_package(Boost REQUIRED)
   checkOrInstallPugixml()
 
-  installSubPackage("mtca4u-deviceaccess" "" "" "deviceaccess")
+  installSubPackage("mtca4u-deviceaccess" "" "" "DeviceAccess")
   installSubPackage("QtHardMon" "" "external-mtca4u-deviceaccess" "")
   installSubPackage("MotorDriverCard" "-Dpugixml_DIR=${pugixml_DIR}"
 	"external-mtca4u-deviceaccess;${pugixml_external_project_name}" "")
   installSubPackage("CommandLineTools" "" "external-mtca4u-deviceaccess" "")
-  installSubPackage("mtca4uPy" "" "external-mtca4u-deviceaccess" "PythonBindings/deviceaccess")
+  installSubPackage("mtca4uPy" "" "external-mtca4u-deviceaccess" "DeviceAccess-PythonBindings")
   installSubPackage("mtca4uVirtualLab" "" "external-mtca4u-deviceaccess" "VirtualLab")
 
   message("This is mtca4uInstallation installing to ${MTCA4U_DIR}.")
