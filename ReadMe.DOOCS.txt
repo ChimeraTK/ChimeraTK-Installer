@@ -1,4 +1,6 @@
-Using MTCA4U with DOOCS
+Using ChimeraTK with DOOCS
+
+Note: MTCA4U has recently been renamed to ChimeraTK. The debian packages and namespaces of the projects are still called mtca4u at the moment.
 
 -------------
 Installation:
@@ -12,11 +14,11 @@ In case you have no root privileges or want the HEAD version, which is never pac
 -----------------------
 Adapting your Makefile:
 -----------------------
-Each library in MTCA4U comes with a script which provides the compiler and linker flags. The deviceaccess library for instance has a script named 'mtca4u-deviceaccess-config'.
+Each library in ChimeraTK/MTCA4U comes with a script which provides the compiler and linker flags. The deviceaccess library for instance has a script named 'mtca4u-deviceaccess-config'.
 It has to be in you path, which is the case if you installed the library from a debian package. For manual installations add the 'bin' directory of the installation directory to you path,
 for instance ${HOME}/mtca4u/${DOOCSARCH}/[MTCA4U_VERSION]/bin).
 
-Invoke the according script of each library in the following way (currently only mtca4u-deviceacces and mtca4u-MotorDriverCard have support for standard Makefiles):
+Invoke the according script of each library in the following way (currently mtca4u-deviceacces, mtca4uVirtualLab and mtca4u-MotorDriverCard have support for standard Makefiles):
 
 Example:
 CPPFLAGS += $(SHELL mtca4u-deviceaccess-config --cppflags)
@@ -50,6 +52,6 @@ If you do not need MTCA4U for another project, you might also want to keep mtca4
 set(MTCA4U_BASE_DIR "$ENV{HOME}/doocs/mtca4u/$ENV{DOOCSARCH}")
 The exact installation location is up to the user. The configuration files are automatically adapted to point to wherever you chose to install the library. There are no implicit assumptions on the install path.
 
-To perform the installation just run the install.sh script, as described in ReadMe.txt.
+To perform the installation just run the install.sh script, as described in Manual.txt.
 
 Note: When installing for several architectures from the same source directory on a network drive, simply remove the 'build' directory from the previous installation before running the install script on the new architecture.

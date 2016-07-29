@@ -1,38 +1,39 @@
-mtca4u_installer is a meta package which will install the mtca4u sub packages. Currently these are
-- deviceaccess (successor of MtcaMappedDevice aka libdevMap from llrfCtrl/toolsForServer/desy-libs/libs-src)
+ChimeraTK-installer is a meta package which will install the CimeraTK sub packages.
+
+Note: ChimeraTK was previously called MTCA4U, and name spaces, variable and directory names etc. have to been changed yet.
+
+Currently available packages are
+- DeviceAccess (successor of MtcaMappedDevice aka libdevMap from llrfCtrl/toolsForServer/desy-libs/libs-src)
 - QtHardMon
 - MotorDriverCard
 - CommandLineTools
-- mtca4uPy (Python bindings for MtcaMappedDevice)
+- mtca4uPy (Python bindings for DeviceAccess)
 - VirtualLab
 The installation is done from source code. You need the C++ development tools (compiler etc.) installed on your
 machine.
 
 Requirements:
 You need cmake (at least version 2.8.3), which is used as the build system.
-In addition you need the Subversion version control client installed (svn).
+In addition you need the git version control client installed.
 The libraries use C++ Boost and libxml++, so you need the according development libraries.
 For the unit tests you need the Boost testing framework in addition. They are optional and not required to build the packages.
 To build the QtHardMon, you also need the Qt4 development libraries installed. For the plotting functionality
 QWT 6 is required in addition.
-MotorDriverCard reqires the pugixml parser (version 1.4 or higher, including Findpugixml.cmake, which is in the DESY version.
-  See (*) below the dependeny list.)
 
 You have to install these packages with the package manager of your Linux distribution before you can proceed
-with the installation. The list below shows the software component and the Ubuntu 12.4 package name in
+with the installation. The list below shows the software component and the Ubuntu (12.4) package name in
 parentheses. You can install it using "sudo apt-get install PackageName". For other distributions the
 package name and install mechanism can be different.
 
 - CMake (cmake)
-- Subversion (subversion)
+- git (git)
 - Boost (libboost-dev)
 - Boost Test Library (libboost-test-dev)
 - Boost Filesystem (libboost-filesystem-dev) // MotorDriverCard only, optional
 - Boost Thread (libboost-thread-dev) // MotorDriverCard only
 - libxml++ (libxml++2.6-dev)
-- Qt4 development libraries (libqt4-dev) // QtHardMon only
+- Qt4 development libraries (libqt4-dev) // QtHardMon only, optional for MotorDriverCard
 - QWT development libraries (libqwt-dev) // QtHardMon plotting only, optional
-- pugixml (libpugixml-dev)(*) // MotorDriverCard only (**)
 - Boost Python (libboost-python-dev) // mtca4uPy only
 - Numpy (python-numpy) // mtca4uPy only
 
@@ -42,37 +43,27 @@ hand-pick the boost dependencies.
 Recommended to get documentation:
 - Doxygen (doxygen)
 
-(*) You need the libpugixml-dev libraries with Findpugixml.cmake. They are provided in the DESY version of the package.
-For Ubuntu 12.4 and 14.4 this is available from the DESY debian package servers 
-http://doocspkgs.desy.de/pub/doocs (DESY internal)
-and http://doocs.desy.de/pub/doocs (from outside of DESY). For all other cases it has to be installed from
-the source code, which can be found at http://www.desy.de/~killenb/pugixml-desy/.
-The MTCA4U installer can automatically install pugixml for you. Just "set(INSTALL_PUGIXML true)" in the CMakeLists.txt.
-In this case you also need the bazaar (bzr) version control package installed.
-
 Download:
-You can download the source code of the mtca4u meta package directly from the source code repository:
-(The name of the download directory on your hard drive, which is the last argument of the command, can be chosen freely.
- In this ReadMe we use mtca4u_installer.)
+You can download the source code of the ChimeraTK installer directly from the source code repository:
 
-~> svn checkout https://svnsrv.desy.de/public/mtca4u/mtca4u_installer/trunk mtca4u_installer
+~> git clone https://github.com/ChimeraTK/ChimeraTK-installer
 
 Installation:
 To perform the default installation to your home directory ($HOME/mtca4u) just run the install.sh script in 
-the mtca4u_installer directory. This will download, compile and install the latest release version of mtca4u.
+the Chinmera-TK-installer directory. This will download, compile and install the latest release version of ChimeraTK.
 
-~/mtca4u_installer> ./install.sh
+~/ChimeraTK-installer> ./install.sh
 
 In case you want to install to a different directory adapt the MTCA4U_BASE_DIR in the CMakeLists.txt file
 before executing the script. For installations on network drives (nfs, afs) which can be mounted from different
 architectures it is recommended to add the architecture to the MTCA4U_BASE_DIR, for instance 
-set(MTCA4U_BASE_DIR "$ENV{HOME}/mtca4u/Ubuntu-12.04-x86_64")
+set(MTCA4U_BASE_DIR "$ENV{HOME}/mtca4u/Ubuntu-16.04-x86_64")
 
 Executing the HardMon:
 Just execute $HOME/mtca4u/[MTCA4U_VERSION]/bin/QtHardMon.
 You might want to add $HOME/mtca4u/[MTCA4U_VERSION]/bin to your 
 search path, so you can just call 'QtHardMon'. You also need this for the library configuration scripts
-if you want to develop using standard Makefile.
+if you want to develop using standard Makefiles.
 For Bash you can add the following line to your $HOME/.bashrc :
 export PATH=${PATH}:${HOME}/mtca4u/[MTCA4U_VERSION]/bin
 
@@ -110,23 +101,22 @@ versions but only the HEAD of the deviceaccess sub package, and all the other ve
 release (see example 1). Or you might want to skip QtHardMon in case the Qt4 development environment 
 is not available (example 2).
 To perform this installation you have to create a new MTCA4U_VERSION_*.cmake file in the cmakemodules
-directory, usually by copying and adapting an existing one. Another use case is skipping the MotorDriverCard
-if you don't want to bother with installing pugixml.
+directory, usually by copying and adapting an existing one.
 
 Example 1:
-In this example we use the 01.00.00 version of mtca4u and set the MtcaMappedDevice version to HEAD. We chose the 
-rather lengthy, but descriptive name/version string  "01.00.00_with_deviceaccess_HEAD".
+In this example we use the 01.07.00 version of mtca4u and set the mtca4u-deviceaccess version to HEAD. We chose the 
+rather lengthy, but descriptive name/version string  "01.07.00_with_deviceaccess_HEAD".
 Note that the version string has to start with the version number so the internal parser runs successfully.
 
-~/mtca4u_installer/cmakemodules> cp MTCA4U_VERSION_01.00.00.cmake MTCA4U_VERSION_01.00.00_with_deviceaccess_HEAD.cmake
+~/ChimeraTK-installer/cmakemodules> cp MTCA4U_VERSION_01.07.00.cmake MTCA4U_VERSION_01.07.00_with_deviceaccess_HEAD.cmake
 
 Now open the new file in a text editor and change
-set(mtca4u-deviceaccess_VERSION "00.04.00")
+set(mtca4u-deviceaccess_VERSION "00.12.03")
 to
 set(mtca4u-deviceaccess_VERSION "HEAD")
 
-Afterwards exit the CMakeLists.txt and set the MTCA4U_VERSION to "01.00.00_with_deviceaccess_HEAD". Now
-just run install.sh. The installation will go to $/HOME/mtca4u/01.00.00_with_deviceaccess_HEAD (if you did not
+Afterwards exit the CMakeLists.txt and set the MTCA4U_VERSION to "01.07.00_with_deviceaccess_HEAD". Now
+just run install.sh. The installation will go to $/HOME/mtca4u/01.07.00_with_deviceaccess_HEAD (if you did not
 change the MTCA4U_BASE_DIR).
 
 Note: The released versions of mtca4u contain a combination of versions of the sub packages which are known to
@@ -134,6 +124,6 @@ work together, as well as all the HEAD versions should work together. When creat
 of sub packages this might not be the case. Or it might break later, when the HEAD of a package is evolving.
 
 Example 2:
-You want to exclude QtHardMon from the installation. Copy the version file MTCA4U_VERSION_01.00.00.cmake file to
-01.00.00_without_QtHardMon.cmake . Open the latter and simply delete or comment
-the 'set(QtHardMon_VERSION 00.15.02)' line. Now adapt the CMakeLists.txt as described in example 1.
+You want to exclude QtHardMon from the installation. Copy the version file MTCA4U_VERSION_01.07.00.cmake file to
+01.07.00_without_QtHardMon.cmake . Open the latter and simply delete or comment
+the 'set(QtHardMon_VERSION 00.17.04)' line. Now adapt the CMakeLists.txt as described in example 1.
