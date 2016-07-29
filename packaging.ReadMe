@@ -1,0 +1,55 @@
+These are instructions how to create debian packages for all sub-packages of a ChimeraTK release.
+
+1. Create a build directory and run cmake
+~/ChimeraTK-installer$ mkdir build; cd build
+If the build directory exists, clear it.
+~/ChimeraTK-installer/build$ cmake ..
+
+2. Configure the buildversions.sh file.
+#FIXME: This manual procedure is very error prone. Automate it.
+buildversions.sh has environment variables which define the build version of 
+each package. Check the previous build version for each package. If there is no package
+for the particular software version yet, leave the build version at ${CODENAME}1, else 
+increase the version by one wrt. to the existing package.
+
+The buildversions are at 1 by default, but all variables are commented out. You have to
+edit this file before you can proceed. Do this scrupulously! It is the only place where you
+have to configure something manually, but you have get this right. If you accidentally rebuild
+a dependent package of a library with the same software and build version, linked against 
+a different version of the library it depends on, this can spoil existing executables like DOOCS
+servers.
+
+* Open buildversions.sh with an editor.
+* Check each build version and uncomment all lines that exports the BUILDVERSION variable.
+
+3. Source buildversions.sh
+~/ChimeraTK-installer/build$ source buildversions.sh
+
+4. Build the DeviceAccess debian package
+~/ChimeraTK-installer/build$ ./prepare_DeviceAccess_debian.py
+
+5. (skip for debugging or in Jenkins) Deploy DeviceAccess onto the debian package server
+~/ChimeraTK-installer/build$ ./install_DeviceAccess_debian_package_at_DESY.sh
+
+6. Install deviceAccess on the build host
+$ sudo apt-get update
+$ sudo apt-get install libmtca4u-deviceaccess-dev
+When debugging install the deviceaccess debian packages manually
+$ cd  mtca4u-deviceaccess_MM.mm.pp/build/debian_package
+$ dkpg -i *.deb
+
+7. Build all packages that depend on deviceaccess
+~/ChimeraTK-installer/build$ ./prepare_dependent_debian_packages.py
+
+8. Build mtca4u debian meta-package
+~/ChimeraTK-installer/build$ make debian_package
+
+9. (skip for debugging or in Jenkins) Deploy all dependent packages and the meta_package at DESY
+~/ChimeraTK-installer$ ./install_dependent_debian_packages_at_DESY.sh
+~/ChimeraTK-installer$ ./install_ChimeraTK_debian_package_at_DESY.sh
+
+
+10. (skip for debugging or in Jenkins) Install everything on the build host (usually a doocsdev machine)
+   The development metapackage brings everything else with it.
+$ sudo apt-get update
+$ sudo apt-get install libmtca4u-dev
