@@ -1,0 +1,24 @@
+# Attention: File manually copied from project template.
+# ChimeraTK-installer is not completely changed to the template yet.
+# Only add at the end to avoid merge conflicts later.
+# Feed changed in the common setion back to the project template!
+
+######################
+# Section for 'ignore patterns' from the project-template
+#
+# !! Don't edit anything in this section to avoid merge conflics !!
+######################
+build
+.project
+#files ending with ~ are emacs backups
+*~
+#files ending with .swp might show up when using vi
+*.swp
+
+######################
+# Project specific 'ignore patterns'
+#
+# Put you project specific ignores below.
+# If they are generally useful consider adding them to the 
+# project-template and the merge them in.
+######################
