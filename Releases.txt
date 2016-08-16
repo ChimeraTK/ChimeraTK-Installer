@@ -6,15 +6,26 @@ Rerunning the install script will update the existing installation to the curren
 Tagged releases:
 The tagged releases consist of a set of sub package releases which are known to work together.
 
-"01.08.00"
+"01.09.00"
+All packages now use "Release" as default build type.
+- DeviceAccess 00.15.00
+-- Performance optimisation in raw mode for accessors:
+   Do not invoke FixedPointConverter but swap the data
+- MotorDriverCard 00.12.00
+-- Switched on effc++ and got rid of all warnings this caused.
+   It resulted in some minor, but not ABI compatible changes.
+- QtHardMon 00.17.05
+- CommandLineTools 00.11.01
+- mtca4uPy 00.08.01
+- mtca4uVirtualLab 00.03.04
 
+"01.08.00"
 - DeviceAccess 00.13.00
   --Transfer groups can combine accessors on the hardware transport layer
     (for instance adjacent addresses in numerically addressed backends)
     and transfer them together.
 
 "01.07.02"
-
 - DeviceAccess 00.12.04
   -- Fixed calculation of number of sequences and offset error in DummyMultiplexedRegisterAccessor
      Resolves bug #2394
