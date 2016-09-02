@@ -54,6 +54,7 @@ createDebianControlVariables( mtca4uVirtualLab )
 file(COPY ${CMAKE_SOURCE_DIR}/cmakemodules/debian_package_templates/compat
      ${CMAKE_SOURCE_DIR}/cmakemodules/debian_package_templates/copyright
      ${CMAKE_SOURCE_DIR}/cmakemodules/debian_package_templates/rules
+     ${CMAKE_SOURCE_DIR}/cmakemodules/debian_package_templates/control
      DESTINATION debian_from_template)
 
 configure_file(${CMAKE_SOURCE_DIR}/cmakemodules/debian_package_templates/docs
@@ -63,10 +64,6 @@ configure_file(${CMAKE_SOURCE_DIR}/cmakemodules/debian_package_templates/docs
 
 file(COPY ${CMAKE_SOURCE_DIR}/cmakemodules/debian_package_templates/source/format
      DESTINATION debian_from_template/source)
-
-#Set the version number
-configure_file(${CMAKE_SOURCE_DIR}/cmakemodules/debian_package_templates/control.in
-               debian_from_template/control @ONLY)
 
 #Copy and configure the shell script which performs the actual 
 #building of the package

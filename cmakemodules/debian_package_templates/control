@@ -1,0 +1,27 @@
+Source: mtca4u
+Section: metapackages
+Priority: extra
+Maintainer: Martin Killenberg <martin.killenberg@desy.de>
+Build-Depends: debhelper (>= 7)
+Standards-Version: 3.8.3
+#Homepage: <insert the upstream URL, if relevant>
+
+Package: libmtca4u-dev
+Section: devel
+Architecture: any
+#We do not require versions here. There can be only one dev package on the server anyway.
+Depends: mtca4u, libmtca4u-deviceaccess-dev, libmtca4u-motordrivercard-dev, python-mtca4upy-dev,
+ libmtca4u-virtuallab-dev
+Conflicts: dev-mtca4u
+Replaces: dev-mtca4u
+Description: The development packaged for mtca4u
+ This is a meta-package which installs the development files for the libraries of the MTCA4U tool kit.
+
+Package: mtca4u
+Section: metapackages
+Architecture: any
+#Only executables. They also don't have a version number because there can be only one on the server
+Depends: qthardmon, mtca4u-command-line-tools, python-mtca4upy
+Description: DESY MicroTCA.4 User Tool Kit
+ mtca4u is a meta package which installs all the executable packages which belong to 
+ the DESY MicroTCA.4 User Tool Kit, which currently are QtHardMon, the command line tools and the python bindings.
