@@ -105,7 +105,8 @@ MACRO(mtca4uInstallation)
   installSubPackage("CommandLineTools" "" "external-mtca4u-deviceaccess" "")
   installSubPackage("mtca4uPy" "" "external-mtca4u-deviceaccess" "DeviceAccess-PythonBindings")
   installSubPackage("mtca4uVirtualLab" "" "external-mtca4u-deviceaccess" "VirtualLab")
-
+  installsubPackage("MotorDriverCard-PythonBindings" "" "external-MotorDriverCard" "")
+  
   message("This is mtca4uInstallation installing to ${MTCA4U_DIR}.")
 
   configure_file(${PROJECT_SOURCE_DIR}/cmakemodules/${PROJECT_NAME}InitialCache.cmake.in

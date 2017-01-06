@@ -19,7 +19,7 @@ set(MTCA4U_BASE_DIR "$ENV{HOME}/ChimeraTK")
 
 #This variable is updated for a new release. It is stored in a separate line so the 'set(MTCA4U_VERSION ..)'
 #line does not cause a conflict on svn update if it is changed to HEAD by the developer.
-set(LATEST_VERSION "01.10.00")
+set(LATEST_VERSION "01.11.00")
 
 #Set the version to be installed (version number or HEAD).
 #See Releases.txt for more information and a list of available revisions.
@@ -27,7 +27,7 @@ set(LATEST_VERSION "01.10.00")
 # deviceaccess library. For older versions please check out tag 00.24.03, which can install all 00.xx versions.
 set(MTCA4U_VERSION ${LATEST_VERSION})
 #set(MTCA4U_VERSION "HEAD")
-
+message("MTCA4U_VERSION ${MTCA4U_VERSION}")
 #Installing pugixml as a separate library is not needed with recent versions,
 #but it is kept for backward compatibility for tags <= 01.03
 #In case pugixml is not found set either the path where it can be found,

@@ -6,6 +6,21 @@ Rerunning the install script will update the existing installation to the curren
 Tagged releases:
 The tagged releases consist of a set of sub package releases which are known to work together.
 
+"01.11.00"
+Features:
+- MotorDriverCard-PythonBindings 00.03.02
+  -- NEW SUB-PACKAGE: Python bindings for the stepper motor library
+- DeviceAccess 00.18.00
+  -- Extended TransferElement to have the functionality required for the ControlSystem adapter
+  -- Backend factory remenbers all created backends and gives out the same instance.
+     Backends now have to be thread safe.
+
+Bug Fixes: Compilation and packaging issues. No changes to the behaviour.
+- QtHardMon 00.18.01
+- CommandLineTools 00.12.00
+- mtca4uPy 00.09.00
+- VirtualLab 00.04.01
+
 "01.10.00"
 - DeviceAccess 00.17.01
   -- Added isOpenend() function to Device
