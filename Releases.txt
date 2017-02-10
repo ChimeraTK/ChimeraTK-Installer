@@ -6,6 +6,12 @@ Rerunning the install script will update the existing installation to the curren
 Tagged releases:
 The tagged releases consist of a set of sub package releases which are known to work together.
 
+"01.13.00"
+- DeviceAccess 00.20.00
+  -- Basically a bug fix for 00.19.01:
+     Removed leftover debug output in the ReboT backed which would fill up server logs.
+     A variable was removed and it is not tested if this is binray compatible. Hence the minor version has been increased.         
+
 "01.12.00"
 Features:
 - DeviceAccess 00.19.00
