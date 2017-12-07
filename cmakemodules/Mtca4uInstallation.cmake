@@ -108,6 +108,7 @@ MACRO(mtca4uInstallation)
   installsubPackage("MotorDriverCard-PythonBindings" "" "external-MotorDriverCard" "")
   installsubPackage("ControlSystemAdapter" "" "external-mtca4u-deviceaccess" "")
   installsubPackage("ControlSystemAdapter-OPC-UA-Adapter" "" "external-ControlSystemAdapter" "")
+  installsubPackage("ApplicationCore" "" "external-ControlSystemAdapter" "")
   
   message("This is mtca4uInstallation installing to ${MTCA4U_DIR}.")
 
