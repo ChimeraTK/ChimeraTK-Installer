@@ -106,6 +106,7 @@ MACRO(mtca4uInstallation)
   installSubPackage("mtca4uPy" "" "external-mtca4u-deviceaccess" "DeviceAccess-PythonBindings")
   installSubPackage("mtca4uVirtualLab" "" "external-mtca4u-deviceaccess" "VirtualLab")
   installsubPackage("MotorDriverCard-PythonBindings" "" "external-MotorDriverCard" "")
+  installsubPackage("ControlSystemAdapter" "" "external-mtca4u-deviceaccess" "")
   
   message("This is mtca4uInstallation installing to ${MTCA4U_DIR}.")
 
