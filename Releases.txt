@@ -6,6 +6,43 @@ Rerunning the install script will update the existing installation to the curren
 Tagged releases:
 The tagged releases consist of a set of sub package releases which are known to work together.
 
+"01.15.01"
+- Added cppext 01.01.00 which was missing (needed for DeviceAccess etc.)
+
+"01.15.00"
+- General
+  -- Compiler flags changed to latest supported by compiler (C++14 or C++17).
+     You might have to adapt your (C)Make files.
+  -- Core libraries (DeviceAccess, ApplicatonCore, ControlSystemAdapter) should
+     work on MacOS. Not tested in Jenkins yet, might break. Let is know if you have problems.
+
+- DeviceAccess 00.33.00
+  -- Major bug fixes and changes in the internal and external interface (incl. namespace change) sice DeviceAccess 00.28.00.
+     See release logs for Deviceaccess for details.
+
+- QtHardMon 01.00.02
+  -- Completely re-worked to conceptually work with non-numerically addressed
+     backends and other new backend types like SubDeviceBackend
+
+- MotorDriverCard 01.04.00
+
+- ControlSystemAdapter 00.14.00
+  -- Adapted to the changes in DeviceAccess
+  -- Many bug fixes
+  -- Imporoved tests
+
+- ControlSystemAdapter-OPC-UA-Adapter 01.05.01
+  -- add new processVariable type "string", available as scalar (no array support yet)
+
+
+- ApplicationCore 00.14.00
+  -- Added tag "MicroDAQ.CONFIG" to all configuration variables, to make it easier to publish only them into the control system
+  -- Necessary update for latest release of DeviceAccess (readAsync)
+  -- Üroperly specify the AccessModeFlag for control system variables (wait_for_new_data for push-type variables) 
+  -- add DataLossCounter ApplicationModule to detect and observe internal data loss (e.g. due to CPU overloading)
+  -- add Logging ApplicationModule for realising an application log
+  -- several bug fixes    
+
 "01.14.00"
 - DeviceAccess 00.28.00
   Most important changes since 00.20.00
