@@ -98,7 +98,8 @@ MACRO(mtca4uInstallation)
   find_package(Boost REQUIRED)
   checkOrInstallPugixml()
 
-  installSubPackage("mtca4u-deviceaccess" "" "" "DeviceAccess")
+  installSubPackage("cppext" "" "" "")
+  installSubPackage("mtca4u-deviceaccess" "" "external-cppext" "DeviceAccess")
   installSubPackage("QtHardMon" "" "external-mtca4u-deviceaccess" "")
   installSubPackage("MotorDriverCard" "-Dpugixml_DIR=${pugixml_DIR}"
 	"external-mtca4u-deviceaccess;${pugixml_external_project_name}" "")
