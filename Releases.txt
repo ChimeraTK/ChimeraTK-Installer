@@ -6,6 +6,35 @@ Rerunning the install script will update the existing installation to the curren
 Tagged releases:
 The tagged releases consist of a set of sub package releases which are known to work together.
 
+"01.16.00"
+- DeviceAccess 01.00.04
+  -- New exception scheme
+     IMPORTANT: Backend developers *must* neccessarily update their code! No backend must throw its own exceptions. Only the two new exceptions may be thrown!
+  -- Introduce the ChimeraTK device descriptor, which replaces the SDM URI (e.g. in the dmap files)
+  -- Changed project name into ChimeraTK-DeviceAccess (with compatibility layer)
+  -- Fully changed mtca4u namespace into ChimeraTK (with compatibility layer)
+  -- Integrated the TimeStamp into the VersionNumber object
+  -- Improved detection of broken backend plugins
+  -- Logical name mapper backend supports arrays and single bits in registers
+  -- Deprecated parts of the API. C++ compiler warnings have been added. The deprecates
+     parts will be removed soon.
+- ControlSystemAdapter 01.00.00
+  -- TimeStamp has been integrated into the VersionNumber of DeviceAccess. TimeStampSource etc. has therefore been removed.
+- Application Core 01.00.00
+  -- Include descriptions of the owning Module in the descriptions of each process variable
+  -- Make data decimation configurable in MicroDAQ module
+  -- Add module for creating a server based history
+  -- Add message buffer for early messages in logging module
+     (all changes from 00.15.00 while 01.00.00 is adapting to changes in DeviceAccess 01.00 only)
+- Updates due to the API deprecations and change of the project name in DeviceAccess without
+  new features in the dependent project:
+  -- QtHardMon 01.01.00
+  -- MotorDriverCard 01.07.00
+  -- CommandLineTools 00.13.00
+  -- DeviceAccess-PythonBindings 01.02.00
+  -- VirtualLab 00.07
+     NOTE: This release is slightly incompatible and might require you to update your code! See VirtualLab release notes!
+  
 "01.15.01"
 - Added cppext 01.01.00 which was missing (needed for DeviceAccess etc.)
 
